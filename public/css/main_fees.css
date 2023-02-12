@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@300;600&display=swap');
+
+* {
+    font-family: 'Signika', sans-serif;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    width: 55%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+.all-table {
+    display: flex;
+    justify-content: space-evenly;
+}
+.all-table > div {
+    max-width: 500px;
+}
+table tr th {
+    text-align: center;
+}
+table tr td {
+    text-align: center;
+}
+.add-activity-btn {
+    margin: 20px;
+    padding: 5px;
+}
+
+.add-activity-form {
+    display: flex;
+    flex-direction: column;
+    width: 550px;
+    border: 1px solid #999;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 0 20px;
+}
+
+.add-activity-form div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.add-activity-form .add-activity-form-name input {
+    width: 70%;
+    padding: 5px;
+    margin: 10px 0;
+}
+.add-activity-form-require {
+}
+.add-activity-form-require-money {
+    width: 70%;
+    margin: 10px 0;
+}
+.add-activity-form-require-money input {
+    width: 55%;
+    padding: 5px;
+}
+.add-activity-form-require-check input {
+    margin-left: 15px;
+}
+.add-activity-form-submit {
+    width: 100px;
+    padding: 5px;
+    margin: 10px auto;
+}
+
+.wrap-add-activity-form {
+    display: none;
+}
+
+.reNone {
+    display: block;
+}
+
+.wrap-table {
+    display: flex;
+    justify-content: center;
+}

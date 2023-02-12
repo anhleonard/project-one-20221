@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/detail_family.css">
+    <script src="/js/detail_family.js"></script>
+    <script src="/js/checkDateRules.js"></script>
+    <title>Sổ hộ khẩu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Signika:wght@300;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+</head>
+
+<body>
+    <div>
+        <div style="font-size: 25px; font-weight: 600; margin: 20px; text-align: center">MÃ HỘ KHẨU: <%= key %></div>
+        <div class="detail-informations" style="padding: 20px">
+            <div class="detail-chuho">
+                <div style="font-size: 18px; font-weight: 600; margin: 10px 0;">1. Chủ hộ</div>
+                <% if(users) { users.forEach( user => {
+                    if(user.role) {
+                    %>
+                    <div class="detail-chuho-info">
+                        <div class="table-detail-info">
+                            <button class="btn-title">Thông tin chủ hộ</button>
+                            <div>
+                                <table>
+                                    <tr>
+                                        <th>Mã nhân khẩu</th>
+                                        <td>
+                                            <%= user.ma_nhan_khau %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Họ và tên</th>
+                                        <td>
+                                            <%= user.ten_nhan_khau %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Bí danh (nếu có)</th>
+                                        <td>
+                                            <%= user.bi_danh %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Ngày, tháng, năm sinh</th>
+                                        <td>
+                                            <%= user.birthday %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Nơi sinh</th>
+                                        <td>
+                                            <%= user.noi_sinh %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Nguyên quán</th>
+                                        <td>
+                                            <%= user.nguyen_quan %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Dân tộc</th>
+                                        <td>
+                                            <%= user.dan_toc %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Nghề nghiệp</th>
+                                        <td>
+                                            <%= user.nghe_nghiep %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Nơi làm việc</th>
+                                        <td>
+                                            <%= user.noi_lam_viec %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>CMND/CCCD</th>
+                                        <td>
+                                            <%= user.cmndNumber %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Ngày cấp và nơi cấp</th>
+                                        <td>
+                                            <%= user.ngay_cap_cmnd %> <%= user.noi_cap_cmnd %> 
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Ngày, tháng, năm đăng ký thường trú </th>
+                                        <td>
+                                            <%= user.date_thuong_tru %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Nơi thường trú trước khi chuyển đến </th>
+                                        <td>
+                                            <%= user.before_live %>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+
+                        </div>
+                        <div class="change_chuho">
+                            <button class="btn-title">Thay đổi chủ hộ</button>
+                            <div class="change-detail-chuho">
+                                <form action="" method="post" id="changeRole_<%= key %>">
+                                    <div class="change-detail-input">
+                                        <label for="old_chu_ho" style="display: block">Chủ hộ cũ</label>
+                                        <input type="text" id="old_chu_ho" name="old_chu_ho" value="<%= user.ten_nhan_khau %> - <%= user.ma_nhan_khau %>">
+                                    </div>
+                                    <div class="change-detail-input">
+                                        <label for="new_chu_ho" style="display: block">Chủ hộ mới</label>
+                                        <select name="new_chu_ho" id="new_chu_ho" onchange="updateSetRelation(this)">
+                                            <% users.forEach( user => {
+                                                %> <option value="<%= user.ma_nhan_khau %>"><%= user.ten_nhan_khau %> </option> <%
+                                            }) %>
+                                        </select>
+                                    </div>
+                                    <div class="change-relation">
+                                        <div class="change-relation-title">Thay đổi quan hệ</div>
+                                        <div class="change-relation-content">
+                                            <% if(users) {
+                                                users.forEach( user => {
+                                                    %>
+                                                    <div>
+                                                        <div class="change-relation-content-alone">
+                                                            <div class="change-name">
+                                                                <input class="listMembers" type="text" style="padding: 5px;" value="<%= user.ten_nhan_khau %>" id="id_<%= user.ma_nhan_khau %>" class="unDisabled">
+                                                            </div>
+                                                            <div class="select-relation">
+                                                                <label for="relation" style="display: block">Quan hệ với chủ hộ</label>
+                                                                <select style="padding: 5px;" id="relation" name="relation[]" class="unDisabled" onchange="changeUserRelation(this)">
+                                                                    <option value="<%= user.ma_nhan_khau %>-Ông">Ông</option>
+                                                                    <option value="<%= user.ma_nhan_khau %>-Bà">Bà</option>
+                                                                    <option value="<%= user.ma_nhan_khau %>-Bố">Bố</option>
+                                                                    <option value="<%= user.ma_nhan_khau %>-Mẹ">Mẹ</option>
+                                                                    <option value="<%= user.ma_nhan_khau %>-Vợ">Vợ</option>
+                                                                    <option value="<%= user.ma_nhan_khau %>-Chồng">Chồng</option>
+                                                                    <option value="<%= user.ma_nhan_khau %>-Anh">Anh</option>
+                                                                    <option value="<%= user.ma_nhan_khau %>-Chị">Chị</option>
+                                                                    <option value="<%= user.ma_nhan_khau %>-Em">Em</option>
+                                                                    <option value="<%= user.ma_nhan_khau %>-Con">Con</option>
+                                                                    <option value="<%= user.ma_nhan_khau %>-Cháu">Cháu</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <p style="height: 20px; margin-top: -20px; color: red; font-size: 14px"></p>
+                                                    </div>
+                                                    <%
+                                                })
+                                            } %> 
+                                        </div>
+                                    </div>
+                                    <div class="change-detail-input">
+                                        <label for="date_thay_doi" style="display: block">Ngày thay đổi</label>
+                                        <input type="date" name="date_thay_doi" id="date_thay_doi" required>
+                                    </div>
+                                    <div class="change-detail-input">
+                                        <label for="reason" style="display: block">Lý do thay đổi</label>
+                                        <textarea name="reason" id="reason" cols="20" rows="1"></textarea>
+                                    </div>
+                                    <input type="submit" value="Thay đổi" onclick="changeRole(this)" class="change-btn">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <% } }) } %>
+            </div>
+
+            <div class="detail-members">
+                <div style="font-size: 18px; font-weight: 600; margin: 10px 0;">2. Thông tin thành viên trong gia đình</div>
+                <% if(users) { %>
+                    <% users.forEach( user=> {
+                        if(user.role == null) {
+                        %>
+                        <div>
+                            <div>
+                                <div>
+                                    <div>
+                                        <button type="button" onclick="showStatus(this)" style="padding: 5px;">
+                                            Tình trạng nhân khẩu
+                                        </button>
+                                        <form method="post" class="form-status" id="form_change_<%= user.ma_nhan_khau%>_in_<%=key%>">
+                                            <div class="option">
+                                                <input type="radio" name="status" id="dang_sinh_song" value="dang_sinh_song" onchange="isChecked(this)" checked>
+                                                <label for="dang_sinh_song" >Đang sinh sống</label>
+                                            </div>
+                                            <div class="option">
+                                                <input type="radio" name="status" id="da_chuyen" value="da_chuyen" onchange="isChecked(this)">
+                                                <label for="da_chuyen">Chuyển đi nơi khác</label>
+                                                <div class="form-moved">
+                                                    <div class="form-moved-style">
+                                                        <div class="form-moved-item">
+                                                            <label for="date_chuyen_di" style="display: block">Ngày - tháng - năm chuyển</label>
+                                                            <input type="date" id="date_chuyen_di" name="date_chuyen_di" disabled="disabled" class="form-moved-input">
+                                                        </div>
+                                                        <div class="form-moved-item">
+                                                            <label for="noi_chuyen_toi" style="display: block">Nơi chuyển tới</label>
+                                                            <input type="text" id="noi_chuyen_toi" name="noi_chuyen_toi" disabled="disabled" class="form-moved-input">
+                                                        </div>
+                                                        <div class="form-moved-item">
+                                                            <label for="text_note" style="display: block">Ghi chú</label>
+                                                            <textarea name="text_note" id="text_note" cols="20" rows="2" disabled="disabled" class="form-moved-input"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="option">
+                                                <input type="radio" name="status" id="da_mat" value="da_mat" onchange="isChecked(this)">
+                                                <label for="da_mat">Đã qua đời</label>
+                                            </div>
+                                            <input type="submit" value="Cập nhật tình trạng" onclick="changeStatus(this)" style="padding: 5px;">
+                                        </form>
+                                    </div>
+                                </div>
+                                <br>
+                                <table>
+                                    <tr>
+                                        <th>Quan hệ với chủ hộ</th>
+                                        <td>
+                                            <%= user.relation %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Mã nhân khẩu</th>
+                                        <td>
+                                            <%= user.ma_nhan_khau %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Họ và tên</th>
+                                        <td>
+                                            <%= user.ten_nhan_khau %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Bí danh (nếu có)</th>
+                                        <td>
+                                            <%= user.bi_danh %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Ngày, tháng, năm sinh</th>
+                                        <td>
+                                            <%= user.birthday %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Nơi sinh</th>
+                                        <td>
+                                            <%= user.noi_sinh %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Nguyên quán</th>
+                                        <td>
+                                            <%= user.nguyen_quan %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Dân tộc</th>
+                                        <td>
+                                            <%= user.dan_toc %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Nghề nghiệp</th>
+                                        <td>
+                                            <%= user.nghe_nghiep %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Nơi làm việc</th>
+                                        <td>
+                                            <%= user.noi_lam_viec %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>CMND/CCCD</th>
+                                        <td>
+                                            <%= user.cmndNumber %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Ngày cấp và nơi cấp</th>
+                                        <td>
+                                            <%= user.ngay_cap_cmnd %> <%= user.noi_cap_cmnd %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Ngày, tháng, năm đăng ký thường trú </th>
+                                        <td>
+                                            <%= user.date_thuong_tru %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Nơi thường trú trước khi chuyển đến </th>
+                                        <td>
+                                            <%= user.before_live %>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <br>
+                        </div>
+                        <% } }) } %>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

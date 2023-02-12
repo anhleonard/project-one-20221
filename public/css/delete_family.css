@@ -1,0 +1,105 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Signika', sans-serif;
+    font-size: 16px;
+}
+label {
+    display: block;
+}
+.delete-form {
+    border: 2px solid #666;
+    width: 50%;
+    height: 600px;
+    border-radius: 10px;
+    margin: 50px auto;
+    padding: 25px;
+}
+.delete-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 15px 0;
+    display: block;
+}
+.delete-info div{
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+.delete-info div input {
+    width: 85%;
+    padding: 5px;
+}
+
+.delete-status .delete-status-detail{
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.delete-status .delete-status-detail div {
+    width: 50%;
+    display: flex;
+    align-items: center;
+}
+.delete-status .delete-status-detail div label {
+    margin: 0 20px;
+}
+.delete-input-date {
+    display: flex;
+    justify-content: space-between;
+}
+.delete-input-date input {
+    width: 55%;
+    padding: 5px;
+}
+.delete-confirm div:nth-child(2) {
+    display: flex;
+    justify-content: center;
+}
+.delete-confirm div:nth-child(2) button {
+    margin: 30px;
+    padding: 10px;
+    width: 100px;
+    border-radius: 5px;
+}
+.delete-confirm-delete {
+    background-color: rgb(248, 75, 75);
+}
+
+/* .delete-input-date-place {
+    display: flex;
+    flex-direction: column;
+}
+.delete-input-date-place div {
+    display: flex;
+} */
+.delete-status-info {
+    display: flex;
+    justify-content: space-between;
+}
+.delete-status-info .delete-input-statusMove {
+    display: flex;
+    align-items: center;
+} 
+.delete-status-info .delete-input-statusMove label {
+    margin: 0 20px;
+}
+.delete-status-info .delete-input-statusMove,
+.delete-status-info .delete-input-dateMove-placeMove {
+    width: 50%;
+}
+.delete-status-info .delete-input-dateMove-placeMove div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+.delete-status-info .delete-input-dateMove-placeMove div label {
+    margin: 0 20px;
+}
+.delete-status-info .delete-input-dateMove-placeMove div input {
+    padding: 5px;
+    width: 55%;
+}

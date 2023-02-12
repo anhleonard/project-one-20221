@@ -1,0 +1,97 @@
+* {
+    font-size: 16px;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Signika', sans-serif;
+    color: black;
+}
+.update-title {
+    padding-top: 5px;
+    font-size: 30px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 5px;
+}
+.form-update-people {
+    width: 100%;
+}
+.form-update-child {
+    width: 60%;
+    margin: 10px auto;
+    padding: 20px;
+    border: 2px solid #666;
+    border-radius: 15px;
+}
+.update {
+    display: flex;
+    justify-content: space-between;
+}
+.update-label {
+    width: 25%;
+}
+.update-text {
+    width: 70%;
+}
+.update-text input {
+    width: 100%;
+    padding : 5px;
+}
+.update-text p {
+    font-size: 12px;
+    color: red;
+    line-height: 20px;
+    height: 20px;
+}
+.update-combo {
+    display: flex;
+    justify-content: space-between;
+}
+.update-combo div {
+    display: flex;
+    flex-direction: column;
+}
+.update-combo div:nth-child(1) {
+    width: 25%;
+}
+.update-combo div:nth-child(2) {
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+}
+.update-combo div:nth-child(2) div {
+    display: flex;
+    flex-direction: column;
+}
+.update-combo div:nth-child(2) label {
+    width: 60%;
+}
+
+
+.update-relation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.update-relation div:nth-child(2) {
+    width: 70%;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+}
+.update-relation div:nth-child(2) select {
+    width: 60%;
+    padding: 5px;
+}
+
+/* submit-btn-end */
+.submit-btn-end input {
+    display: block;
+    padding: 10px;
+    width: 20%;
+    border-radius: 5px;
+    background-color: #666;
+    color: white;
+    margin: 0 auto;
+}

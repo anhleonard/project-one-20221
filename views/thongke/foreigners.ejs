@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thống kê tạm vắng - trú</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/thongke.css" />
+    <script src="/js/thongke.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <ul id="nav">
+        <li><a href="/">Trang Chủ</a></li>
+        <li><a href="/nhankhau">Nhân Khẩu</a></li>
+        <li><a href="/familyList">Hộ khẩu</a></li>
+        <li>
+          <a href="/papers/giay_tam_tru">Khai Báo</a>
+          <ul class="subnav">
+              <li><a href="/papers/giay_tam_tru">Tạm Trú</a></li>
+              <li><a href="/papers/giay_tam_vang">Tạm Vắng</a></li>
+          </ul>
+        </li>
+        <li><a href="/fees">Khoản Phí</a></li>
+        <li>
+          <a class="active" href="/thongke" class="active">Thống Kê</a>
+          <ul class="subnav">
+            <li><a href="/thongke">Giới tính</a></li>
+            <li><a href="/thongke/ages">Độ tuổi</a></li>
+            <li><a href="/thongke/foreigners">Tạm trú/ Tạm vắng</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="sidebar bar-block card animate-left"
+      style="display: none"
+      id="mySidebar">
+      <button class="bar-item button large" onclick="sidebar_close()">
+        Close &times;
+      </button>
+      <button class="bar-item button large" onclick="data_tru()">
+        Tạm Trú
+      </button>
+      <button class="bar-item button large" onclick="data_vang()">
+        Tạm Vắng
+      </button>
+    </div>
+    <button
+      style="
+        margin-top: 46px;
+        background-color: #333;
+        color: #fff;
+        position: fixed;
+        top: 0;
+        left: 0;
+      "
+      id="openNav"
+      class="button xlarge"
+      onclick="sidebar_open()">
+      &#9776;
+    </button>
+    <div id="main">
+      <div class="title-pages">
+        THỐNG KÊ TẠM TRÚ - TẠM VẮNG
+      </div>
+      <div id="datas_tru">
+        <div class="title-table">THỐNG KÊ TẠM TRÚ</div>
+        <div class="table">
+          <table class="styled-table">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Mã hộ tạm trú</th>
+                <th>Mã Nhân Khẩu</th>
+                <th>Họ và tên</th>
+                <th>Giới Tính</th>
+                <th>Ngày-Tháng-Năm sinh</th>
+              </tr>
+            </thead>
+            <% for (let i = 0; i < datas_tru.length; i++) {%>
+            <tr>
+              <td><%= i+1%></td>
+              <td><%= datas_tru[i].ma_ho_khau %></td>
+              <td><%= datas_tru[i].ma_nhan_khau %></td>
+              <td><%= datas_tru[i].fullName %></td>
+              <td><%= datas_tru[i].gentle %></td>
+              <td><%= datas_tru[i].birthDay %></td>
+            </tr>
+            <% } %>
+          </table>
+        </div>
+      </div>
+
+      <div id="datas_vang" style="display: none">
+        <div class="title-table">THỐNG KÊ TẠM VẮNG</div>
+        <div class="table">
+          <table class="styled-table">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Mã hộ tạm trú</th>
+                <th>Mã Nhân Khẩu</th>
+                <th>Họ và tên</th>
+                <th>Giới Tính</th>
+                <th>Ngày-Tháng-Năm sinh</th>
+              </tr>
+            </thead>
+            <% for (let i = 0; i < datas_vang.length; i++) {%>
+            <tr>
+              <td><%= i+1%></td>
+              <td><%= datas_vang[i].ma_ho_khau %></td>
+              <td><%= datas_vang[i].ma_nhan_khau %></td>
+              <td><%= datas_vang[i].fullName %></td>
+              <td><%= datas_vang[i].gentle %></td>
+              <td><%= datas_vang[i].birthDay %></td>
+            </tr>
+            <% } %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

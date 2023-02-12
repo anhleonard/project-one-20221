@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nhân Khẩu</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/nhankhau.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Signika:wght@300;600&display=swap"
+      rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <script src="/js/nhankhau.js"></script>
+    <script src="/js/time_rules.js"></script>
+  </head>
+
+  <body>
+    <div id="header">
+      <ul id="nav">
+        <li><a href="/">Trang Chủ</a></li>
+        <li><a class="active" href="/nhankhau">Nhân Khẩu</a></li>
+        <li><a href="/familyList">Hộ khẩu</a></li>
+        <li>
+          <a href="/papers/giay_tam_tru">Khai Báo</a>
+          <ul class="subnav">
+            <li><a href="/papers/giay_tam_tru">Tạm Trú</a></li>
+            <li><a href="/papers/giay_tam_vang">Tạm Vắng</a></li>
+          </ul>
+        </li>
+        <li><a href="/fees">Khoản Phí</a></li>
+        <li>
+          <a href="/thongke">Thống Kê</a>
+          <ul class="subnav">
+            <li><a href="/thongke">Giới tính</a></li>
+            <li><a href="/thongke/ages">Độ tuổi</a></li>
+            <li><a href="/thongke/foreigners">Tạm trú/ Tạm vắng</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div style="margin-top: 55px" class="title-user">NHÂN KHẨU</div>
+    <form id="search_form" action="/nhankhau/search" method="post"></form>
+    <form id="form-create-family" method="get"></form>
+    <form style="width: 100%" method="post" class="form-delete">
+      <div class="wrap-form-alert">
+        <div class="form-alert">
+          <div class="form-alert-text">Bạn có chắc chắn xóa không?</div>
+          <div class="form-alert-btn">
+            <button class="btn-delete" onclick="deleteBtn()" type="submit">
+              Xóa
+            </button>
+            <button class="btn-cancel" onclick="cancelBtn()" type="button">
+              Hủy
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="people-options">
+        <div>
+          <button class="add-people-title" onclick="addPeople()" type="button">
+            Thêm nhân khẩu
+          </button>
+          <button
+            class="delete-people-title"
+            disabled
+            onclick="deletePeople()"
+            type="button">
+            Xóa nhân khẩu
+          </button>
+          <button
+            class="create-new-family"
+            disabled
+            type="button"
+            onclick="createFamily()"
+            style="width: 150px"
+            form="form-create-family">
+            Tách hộ khẩu
+          </button>
+        </div>
+        <div>
+          <input
+            type="text"
+            id="search_infor"
+            name="search_infor"
+            form="search_form" />
+          <select id="search_type" name="search_type" form="search_form">
+            <option value="ma_nhan_khau">Mã nhân khẩu</option>
+            <option value="ten_nhan_khau">Tên nhân khẩu</option>
+          </select>
+          <button class="search-people-title" form="search_form" type="submit">
+            Tìm kiếm
+          </button>
+        </div>
+      </div>
+      <div class="table-caption">THÔNG TIN NHÂN KHẨU</div>
+      <div class="table-component">
+        <div class="table-fixed">
+          <table class="main-table">
+            <thead>
+              <tr>
+                <th>Mã hộ khẩu</th>
+                <th>Mã nhân khẩu</th>
+                <th>Tên nhân khẩu</th>
+                <th>Giới tính</th>
+                <th>Ngày-Tháng-Năm sinh</th>
+                <th>Số CMND</th>
+                <th>Nghề nghiệp</th>
+                <th>
+                  <input
+                    type="checkbox"
+                    id="checkbox-all"
+                    onchange="selectAllBox()" />
+                </th>
+                <th>Update</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if(users) { users.forEach( (user)=> { %>
+              <tr>
+                <td><%= user.ma_ho_khau %></td>
+                <td><%= user.ma_nhan_khau %></td>
+                <td><%= user.ten_nhan_khau %></td>
+                <td><%= user.gentle %></td>
+                <td><%= user.birthday %></td>
+                <td><%= user.cmndNumber %></td>
+                <td><%= user.nghe_nghiep %></td>
+                <td>
+                  <input
+                    type="checkbox"
+                    name="selectAllUser[]"
+                    value="<%= user.ma_nhan_khau %>"
+                    class="checked_id"
+                    id="<%= user.ma_nhan_khau %>"
+                    onclick="myCheck(this)" />
+                </td>
+                <td>
+                  <a href="/nhankhau/select-update/user/<%= user._id %> "
+                    >Update</a
+                  >
+                </td>
+              </tr>
+              <% }) } else if (person) { person.forEach( (user)=> { %>
+              <tr>
+                <td><%= user.ma_ho_khau %></td>
+                <td><%= user.ma_nhan_khau %></td>
+                <td><%= user.ten_nhan_khau %></td>
+                <td><%= user.gentle %></td>
+                <td><%= user.birthday %></td>
+                <td><%= user.cmndNumber %></td>
+                <td><%= user.nghe_nghiep %></td>
+                <td>
+                  <input
+                    type="checkbox"
+                    name="selectAllUser[]"
+                    value="<%= user.ma_nhan_khau %>"
+                    onclick="myCheck(this)" />
+                </td>
+                <td>
+                  <a href="/nhankhau/select-update/user/<%= user._id %> "
+                    >Update</a
+                  >
+                </td>
+              </tr>
+              <% }) }%>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </form>
+    <div class="form-add" onclick="exit(event, this)">
+      <div class="form-add-people">
+        <div class="form-add-child">
+          <p>THÊM NHÂN KHẨU</p>
+          <form action="/nhankhau" method="post">
+            <div class="add">
+              <div>
+                <label for="ma_ho_khau">Mã hộ khẩu</label>
+                <input
+                  type="number"
+                  id="ma_ho_khau"
+                  name="ma_ho_khau"
+                  placeholder="10000000 - 99999999"
+                  onkeyup="checkFamily(this)"
+                  onblur="checkValidFamily(this)"
+                  required />
+              </div>
+              <p class="text-alert"></p>
+            </div>
+            <div class="add-relation">
+              <div class="add-is-chuho">
+                <div class="add-label">
+                  <label for="role">Chủ hộ</label>
+                </div>
+                <div class="add-content">
+                  <div>
+                    <input
+                      type="checkbox"
+                      id="role"
+                      name="role"
+                      onchange="isRole()" />
+                  </div>
+                </div>
+              </div>
+              <div class="add-role">
+                <label for="relation">Quan hệ với chủ hộ</label>
+                <select id="relation" name="relation">
+                  <option value="Ông">Ông</option>
+                  <option value="Bà">Bà</option>
+                  <option value="Bố">Bố</option>
+                  <option value="Mẹ">Mẹ</option>
+                  <option value="Vợ">Vợ</option>
+                  <option value="Chồng">Chồng</option>
+                  <option value="Anh">Anh</option>
+                  <option value="Chị">Chị</option>
+                  <option value="Em">Em</option>
+                  <option value="Con">Con</option>
+                  <option value="Cháu">Cháu</option>
+                </select>
+              </div>
+            </div>
+            <div class="isChuho add">
+              <div>
+                <label for="ten_quan">Tên quận</label>
+                <input
+                  type="text"
+                  name="ten_quan"
+                  id="ten_quan"
+                  onblur="checkUpperText(this)" />
+              </div>
+              <div>
+                <label for="ten_phuong">Tên phường</label>
+                <input
+                  type="text"
+                  name="ten_phuong"
+                  id="ten_phuong"
+                  onblur="checkUpperText(this)" />
+              </div>
+              <div>
+                <label for="ten_duong">Tên đường</label>
+                <input
+                  type="text"
+                  name="ten_duong"
+                  id="ten_duong"
+                  onblur="checkUpperText(this)" />
+              </div>
+              <div>
+                <label for="so_nha">Số nhà</label>
+                <input
+                  type="number"
+                  name="so_nha"
+                  id="so_nha"
+                  onblur="checkNumberAddress(this)"
+                  placeholder="1 - 999" />
+              </div>
+            </div>
+            <div class="add">
+              <div>
+                <label for="ma_nhan_khau">Mã nhân khẩu</label>
+                <input
+                  type="number"
+                  id="ma_nhan_khau"
+                  name="ma_nhan_khau"
+                  onkeyup="checkUser(this)"
+                  onblur="checkValidId(this)"
+                  placeholder="100000 - 999999"
+                  required />
+              </div>
+              <p class="text-alert"></p>
+            </div>
+            <div class="add">
+              <div>
+                <label for="ten_nhan_khau">Tên nhân khẩu</label>
+                <input
+                  type="text"
+                  id="ten_nhan_khau"
+                  name="ten_nhan_khau"
+                  placeholder="Nguyễn Văn A"
+                  onblur="checkUpperText(this)"
+                  required />
+              </div>
+              <p class="text-alert"></p>
+            </div>
+            <div class="add">
+              <div>
+                <label for="bi_danh">Bí danh (nếu có)</label>
+                <input
+                  type="text"
+                  id="bi_danh"
+                  name="bi_danh"
+                  onblur="checkUpperText(this)" />
+              </div>
+              <p></p>
+            </div>
+            <div class="mix-option">
+              <div class="add">
+                <label for="gentle">Giới tính</label>
+                <select name="gentle" id="gentle">
+                  <option value="Nam">Nam</option>
+                  <option value="Nữ">Nữ</option>
+                </select>
+                <p></p>
+              </div>
+              <div class="add">
+                <label for="birthday">Ngày, tháng, năm sinh</label>
+                <input
+                  type="date"
+                  id="birthday"
+                  name="birthday"
+                  required
+                  onblur="checkValidDate(this)" />
+                <p class="text-date"></p>
+              </div>
+            </div>
+            <div class="add">
+              <div>
+                <label for="noi_sinh">Nơi sinh</label>
+                <input
+                  type="text"
+                  id="noi_sinh"
+                  name="noi_sinh"
+                  onblur="checkUpperText(this)"
+                  required />
+              </div>
+              <p class="text-alert"></p>
+            </div>
+            <div class="add">
+              <div>
+                <label for="nguyen_quan">Nguyên quán</label>
+                <input
+                  type="text"
+                  id="nguyen_quan"
+                  name="nguyen_quan"
+                  onblur="checkUpperText(this)"
+                  required />
+              </div>
+              <p class="text-alert"></p>
+            </div>
+            <div class="add">
+              <div>
+                <label for="dan_toc">Dân tộc</label>
+                <input
+                  type="text"
+                  id="dan_toc"
+                  name="dan_toc"
+                  onblur="checkUpperText(this)"
+                  required />
+              </div>
+              <p class="text-alert"></p>
+            </div>
+            <div class="add">
+              <div>
+                <label for="nghe_nghiep">Nghề nghiệp</label>
+                <input
+                  type="text"
+                  id="nghe_nghiep"
+                  name="nghe_nghiep"
+                  onblur="checkUpperFirstLetter(this)" />
+              </div>
+              <p class="text-alert"></p>
+            </div>
+            <div class="add">
+              <div>
+                <label for="noi_lam_viec">Nơi làm việc</label>
+                <input
+                  type="text"
+                  id="noi_lam_viec"
+                  name="noi_lam_viec"
+                  onblur="checkUpperText(this)" />
+              </div>
+              <p class="text-alert"></p>
+            </div>
+            <div class="cmnd-add">
+              <div class="add">
+                <label for="cmndNumber">Số CMND/CCCD</label>
+                <input
+                  type="text"
+                  id="cmndNumber"
+                  name="cmndNumber"
+                  onkeyup="checkCMND(this)"
+                  onblur="checkValidCmnd(this)"
+                  placeholder="CMND có 12 chữ số"
+                  disabled />
+                <p class="text-alert"></p>
+              </div>
+              <div class="add">
+                <label for="ngay_cap_cmnd">Ngày cấp CMND/CCCD</label>
+                <input
+                  type="date"
+                  id="ngay_cap_cmnd"
+                  name="ngay_cap_cmnd"
+                  onblur="checkDateCMND(this)"
+                  disabled />
+                <p class="text-alert"></p>
+              </div>
+            </div>
+            <div class="add">
+              <div>
+                <label for="noi_cap_cmnd">Nơi cấp CMND/CCCD</label>
+                <input
+                  type="text"
+                  id="noi_cap_cmnd"
+                  name="noi_cap_cmnd"
+                  onblur="checkUpperText(this)"
+                  disabled />
+              </div>
+              <p class="text-alert"></p>
+            </div>
+            <div class="add">
+              <div>
+                <label for="date_thuong_tru"
+                  >Ngày,tháng, năm đăng ký thường trú</label
+                >
+                <input
+                  type="date"
+                  id="date_thuong_tru"
+                  name="date_thuong_tru"
+                  onblur="checkValidDateLive(this)"
+                  required />
+              </div>
+              <p class="text-alert"></p>
+            </div>
+            <div class="add">
+              <div>
+                <label for="before_live">Nơi thường trú trước đây</label>
+                <input
+                  type="text"
+                  id="before_live"
+                  name="before_live"
+                  onblur="checkUpperText(this)" />
+              </div>
+              <p class="text-alert"></p>
+            </div>
+            <div class="submit-btn-end">
+              <input type="submit" value="THÊM" id="submit-btn-end" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap-form-create">
+      <div class="form-create-family">
+        <div style="font-size: 25px; font-weight: 600; text-align: center">
+          Tạo hộ khẩu mới
+        </div>
+        <form action="/create-family" class="form-select-family" method="post">
+          <div class="id_ho_khau">
+            <div>
+              <label for="id_ho_khau">Mã hộ khẩu</label>
+            </div>
+            <div>
+              <input
+                type="number"
+                id="id_ho_khau"
+                name="id_ho_khau"
+                placeholder="10000000 - 99999999"
+                onkeyup="checkValidIdFamily(this)"
+                onblur="checkValid_MaNhanKhau(this)"
+                required />
+              <p style="height: 20px; color: red; font-size: 12px"></p>
+            </div>
+          </div>
+          <div class="select-chuho">
+            <label for="chuho">Chủ hộ</label>
+            <select
+              name="chuho"
+              id="chuho"
+              class="form-select-chuho"
+              onchange="selectChuho(this)"></select>
+          </div>
+          <div
+            class="select-member-title"
+            style="margin: 20px 0; font-weight: 600">
+            Thành viên trong hộ
+          </div>
+          <div class="select-member"></div>
+          <div class="select-family-address" style="margin: 30px 0">
+            <div class="family-address-title">Địa chỉ nơi cư trú</div>
+            <div class="family-address-detail">
+              <div>
+                <label for="district_name">Tên quận</label>
+                <input
+                  type="text"
+                  id="district_name"
+                  name="district_name"
+                  required />
+              </div>
+              <div>
+                <label for="ward_name">Tên phường</label>
+                <input type="text" id="ward_name" name="ward_name" required />
+              </div>
+              <div>
+                <label for="street_name">Tên đường</label>
+                <input
+                  type="text"
+                  id="street_name"
+                  name="street_name"
+                  required />
+              </div>
+              <div>
+                <label for="family_number">Số nhà</label>
+                <input
+                  type="text"
+                  id="family_number"
+                  name="family_number"
+                  required />
+              </div>
+            </div>
+          </div>
+          <div class="select-member-end">
+            <input
+              id="select-member-submit"
+              type="submit"
+              value="Thêm hộ"
+              disabled />
+            <button type="button" onclick="removeOptionTags()">Hủy bỏ</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

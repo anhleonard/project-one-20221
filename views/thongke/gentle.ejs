@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thống kê theo giới tính</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/thongke.css" />
+    <script src="/js/thongke.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <ul id="nav">
+        <li><a href="/">Trang Chủ</a></li>
+        <li><a href="/nhankhau">Nhân Khẩu</a></li>
+        <li><a href="/familyList">Hộ khẩu</a></li>
+        <li>
+          <a href="/papers/giay_tam_tru">Khai Báo</a>
+          <ul class="subnav">
+            <li><a href="/papers/giay_tam_tru">Tạm Trú</a></li>
+            <li><a href="/papers/giay_tam_vang">Tạm Vắng</a></li>
+          </ul>
+        </li>
+        <li><a href="/fees">Khoản Phí</a></li>
+        <li>
+          <a class="active" href="/thongke" class="active">Thống Kê</a>
+          <ul class="subnav">
+            <li><a href="/thongke">Giới tính</a></li>
+            <li><a href="/thongke/ages">Độ tuổi</a></li>
+            <li><a href="/thongke/foreigners">Tạm trú/ Tạm vắng</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="sidebar bar-block card animate-left"
+      style="display: none"
+      id="mySidebar">
+      <button class="bar-item button large" onclick="sidebar_close()">
+        Close &times;
+      </button>
+      <button class="bar-item button large" onclick="ismale()">Nam</button>
+      <button class="bar-item button large" onclick="isfemale()">Nữ</button>
+    </div>
+    <button
+      style="
+        margin-top: 46px;
+        background-color: #333;
+        color: #fff;
+        position: fixed;
+        top: 0;
+        left: 0;
+      "
+      id="openNav"
+      class="button xlarge"
+      onclick="sidebar_open()">
+      &#9776;
+    </button>
+    <div id="main">
+      <div class="title-pages">THỐNG KÊ THEO GIỚI TÍNH</div>
+      <div id="male">
+        <div class="title-table">Giới Tính Nam</div>
+        <div class="table">
+          <table class="styled-table">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Mã Hộ Khẩu</th>
+                <th>Mã Nhân Khẩu</th>
+                <th>Họ và tên</th>
+                <th>Giới Tính</th>
+                <th>Ngày-Tháng-Năm sinh</th>
+              </tr>
+            </thead>
+            <% for (let i = 0; i < gender.male.length; i++) {%>
+            <tr>
+              <td><%= i+1%></td>
+              <td><%= gender.male[i].ma_ho_khau %></td>
+              <td><%= gender.male[i].ma_nhan_khau %></td>
+              <td><%= gender.male[i].ten_nhan_khau %></td>
+              <td><%= gender.male[i].gentle %></td>
+              <td><%= gender.male[i].birthday %></td>
+            </tr>
+            <% } %>
+          </table>
+        </div>
+      </div>
+      <div id="female" style="display: none">
+        <div class="title-table">Giới Tính Nữ</div>
+        <div class="table">
+          <table class="styled-table">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Mã Hộ Khẩu</th>
+                <th>Mã Nhân Khẩu</th>
+                <th>Họ và tên</th>
+                <th>Giới Tính</th>
+                <th>Ngày-Tháng-Năm sinh</th>
+              </tr>
+            </thead>
+            <% for (let i = 0; i < gender.female.length; i++) {%>
+            <tr>
+              <td><%= i+1%></td>
+              <td><%= gender.female[i].ma_ho_khau %></td>
+              <td><%= gender.female[i].ma_nhan_khau %></td>
+              <td><%= gender.female[i].ten_nhan_khau %></td>
+              <td><%= gender.female[i].gentle %></td>
+              <td><%= gender.female[i].birthday %></td>
+            </tr>
+            <% } %>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

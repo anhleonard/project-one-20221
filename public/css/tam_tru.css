@@ -1,0 +1,93 @@
+* {
+    font-size: 16px;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Signika', sans-serif;
+    color: black;
+}
+.wrap-form-tam-tru {
+    width: 60%;
+    border: 1px solid black;
+    margin: 60px auto;
+    padding: 15px 25px;
+    height: 650px;
+}
+.title {
+    font-size: 25px;
+    font-weight: 600;
+    text-align: center;
+    margin: 25px 0;
+}
+.input {
+    display: flex;
+    justify-content: space-between;
+}
+.input .wrap-input-field {
+    width: 75%;
+}
+.input .wrap-input-field input,
+.input .wrap-input-field select {
+    width: 100%;
+    padding: 5px;
+}
+label {
+    display: block;
+}
+.wrap-input-field p {
+    height: 20px;
+    font-size: 14px;
+    color: red;
+}
+.wrap-input-date-gentle {
+    display: flex;
+    justify-content: space-between;
+}
+.input-date-gentle {
+    display: flex;
+    justify-content: space-between;
+    width: 75%;
+    margin-bottom: 20px;
+}
+.input-date-gentle input,
+.input-date-gentle select {
+    padding: 5px;
+    width: 180px;
+}
+.input-gentle {
+    width: 45%;
+    display: flex;
+    justify-content: space-between;
+}
+.wrap-date {
+    display: flex;
+    justify-content: space-between;
+}
+.input-date {
+    width: 75%;
+    display: flex;
+    justify-content: space-between;
+}
+.input-date > input {
+    width: 180px;
+}
+.input-todate {
+    display: flex;
+    width: 45%;
+    justify-content: space-between;
+}
+.wrap-input-todate input{
+    width: 180px;
+    padding: 5px;
+}
+.wrap-input-todate p {
+    height: 20px;
+    font-size: 14px;
+    color: red;
+}
+.action-button {
+    display: block;
+    padding: 10px;
+    width: 120px;
+    margin: 20px auto;
+}

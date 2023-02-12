@@ -1,0 +1,465 @@
+* {
+    font-size: 16px;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Signika', sans-serif;
+    color: black;
+}
+body {
+    background-color: rgb(255, 255, 255);
+    position: relative;
+}
+
+.table-component {
+    display: inline-block;
+    height: 450px;
+    overflow: auto;
+    width: 100%;
+}
+
+
+table th {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+
+
+/* == Just general styling, not relevant :) == */
+.table-caption {
+    font-size: 25px;
+    margin: 20px 20px 20px;
+    text-align: center;
+}
+
+.table-fixed thead th {
+    position: sticky;
+    top: 0px;
+}
+
+table {
+    width: 85%;
+    margin: 0 auto;
+    text-align: center;
+    border-collapse: collapse;
+    border: 1px solid rgb(0, 0, 0);
+}
+
+th {
+    background-color: #009879;
+    color: #fff;
+}
+
+th,
+td {
+    padding: 1em .5em;
+}
+
+tr {
+    color: #212121;
+}
+
+table tr:nth-child(odd) {
+    background-color: #BBDEFB;
+}
+
+/* form-add-people */
+.form-add {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    background-color: rgb(0, 0, 0, 0.8);
+    display: none;
+    z-index: 0;
+}
+.form-add-people {
+    background-color: #fff;
+    width: 65%;
+    height: 95%;
+    border-radius: 10px;
+    margin: 0 auto;
+}
+.form-add-people .form-add-child {
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 30px;
+    margin: 16px auto;
+}
+.form-add-people .form-add-child form {
+    overflow-y: auto;
+    height: 100%;
+}
+
+.form-add-child > p {
+    font-weight: 600;
+    font-size: 25px;
+    text-align: center;
+}
+/* 
+.form-add-people .form-add-child p {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 24px;
+}
+.form-add-people .form-add-child input {
+    width: 700px;
+    height: 30px;
+}
+.form-add-people .form-add-child .add {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.form-add-people .form-add-child .submit-btn-end {
+    display: flex;
+    justify-content: center;
+}
+.form-add-people .form-add-child .submit-btn-end input{
+    width: 20%;
+} */
+.add > div {
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.add > div > label {
+    width: 20%;
+    font-size: 15px;
+}
+.add > div > input {
+    width: 75%;
+    padding: 5px;
+}
+.add > p {
+    height: 20px;
+}
+.cmnd-add {
+    display: flex;
+    justify-content: space-between;
+}
+.cmnd-add .add input, label {
+    font-size: 15px;
+}
+.cmnd-add .add input {
+    width: 170px;
+    padding: 5px;
+}
+.cmnd-add .add:nth-child(1) label{
+    margin-right: 118px;
+}
+ /* form-add-people mix-option */
+.mix-option {
+    display: flex;
+    justify-content: space-between;
+}
+.mix-option .add:nth-child(1) label {
+    margin-right: 165px;
+}
+.mix-option .add:nth-child(1) select {
+    font-size: 15px;
+    padding: 5px;
+    width: 170px;
+}
+.mix-option .add:nth-child(2) input {
+    font-size: 15px;
+    padding: 5px;
+    width: 170px;
+}
+/* form-add-people add-relation */
+.add-relation {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.add-is-chuho {
+    width: 65%;
+    display: flex;
+}
+.add-label {
+    margin-right: 178px;
+}
+.isChuho {
+    display: flex;
+    flex-direction: column;
+    display: none;
+}
+.isChuho div {
+    margin: 10px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.add-role {
+    width: 35%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.add-role  select {
+    padding: 5px;
+    font-size: 15px;
+    width: 50%;
+}
+
+
+/* .form-add-people btn-submit */
+.submit-btn-end {
+    display: flex;
+    justify-content: center;
+}
+.submit-btn-end input {
+    padding: 10px;
+    margin: 20px 0;
+    width: 170px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    border-radius: 7px;
+}
+/* form-update-people */
+
+.form-update-people {
+    width: 100%;
+}
+.form-update-people .form-update-child {
+    width: 60%;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 30px;
+    margin: 16px auto;
+}
+.form-update-people .form-update-child p {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 24px;
+}
+.form-update-people .form-update-child input {
+    width: 700px;
+    height: 30px;
+}
+.form-update-people .form-update-child .update {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.form-update-people .form-update-child .submit-btn-end {
+    display: flex;
+    justify-content: center;
+}
+.form-update-people .form-update-child .submit-btn-end input{
+    width: 20%;
+}
+/* update-form-add and update*/
+/* .isChuho {
+    display: none;
+} */
+
+/* input */
+input:focus {
+    outline: none !important;
+}
+
+/* //start */
+.title-user {
+    font-weight: 600;
+    font-size: 40px;
+    margin: 10px;
+    text-align: center;
+}
+.add-people-title, .delete-people-title, #search_type {
+    width: 150px !important;
+    text-align: center;
+    /* margin: 0 30px; */
+}
+.people-options {
+    display: flex;
+    justify-content: space-around;
+}
+.people-options > div {
+    display: flex;
+}
+.people-options > div button {
+    margin: 0 30px 0 0;
+    padding: 10px;
+}
+#search_infor {
+    width: 450px;
+    margin-right: 30px;
+}
+#search_type {
+    margin-right: 30px;
+}
+.search-people-title {
+    width: 120px;
+}
+
+
+/* all p tag */
+.text-alert {
+    margin-left: 222px;
+    font-size: 12px;
+    color: red;
+}
+.text-date {
+    font-size: 12px;
+    color: red;
+    text-align: left;
+    margin-left: 143px;
+}
+
+/* .form-alert */
+
+.form-alert {
+    position: fixed;
+    left: calc(50% - 175px);
+    z-index: 100;
+    width: 350px;
+    height: 150px;
+    background-color: rgb(255, 255, 255);
+    border: 2px solid #666;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 10px 25px;
+    text-align: center;
+    padding-top: 25px;
+    display: none;
+}
+.form-alert-text {
+    width: 100%;
+    margin-bottom: 35px;
+    font-size: 20px;
+}
+
+.form-alert-btn {
+    width: 100%;
+}
+.form-alert-btn button {
+    width: 60px;
+    height: 30px;
+    color: white;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+.form-alert-btn button:nth-child(1) {
+    margin-right: 40px;
+    background-color: red;
+}
+.form-alert-btn button:nth-child(2) {
+    background-color: #5bb5a3;
+}
+
+/* form-create-family */
+.wrap-form-create {
+    background-color: rgb(0, 0, 0, 0.8);
+    position: fixed;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    display: none;
+}
+
+.form-create-family {
+    width: 40%;
+    height: 95%;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 15px 20px;
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow-y: auto;
+}
+.form-select-family {
+    margin: 20px 0;
+}
+.select-chuho {
+    display: flex;
+}
+.select-chuho > label {
+    width: 30%;
+}
+.select-chuho select {
+    width: 70%;
+    padding: 5px;
+}
+.select-member {
+    margin: 20px 0;
+    min-height: 280px;
+}
+.select-member-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.select-member-main_content {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+}
+.select-member-name {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.select-member-name input{
+    width: 80%;
+    padding: 5px;
+}
+.select-member-relation {
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.select-member-relation select {
+    width: 35%;
+    padding: 5px;
+}
+
+.select-member-end{
+    display: flex;
+    justify-content: center;
+}
+.select-member-end input, .select-member-end button {
+    padding: 5px;
+    width: 100px;
+    margin: 0 20px;
+}
+
+.id_ho_khau {
+    display: flex;
+    justify-content: space-between;
+}
+
+.id_ho_khau div:nth-child(2) {
+    width: 70%;
+}
+.id_ho_khau div:nth-child(2) input {
+    padding: 5px;
+    width: 100%;
+}
+
+/* family-address */
+.family-address-title {
+    margin: 20px 0;
+    font-weight: 600;
+}
+.family-address-detail {
+    width: 100%;
+}
+.family-address-detail div{
+    margin: 15px 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.family-address-detail div input {
+    width: 70%;
+}

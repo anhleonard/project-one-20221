@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/other_fees.css" />
+    <title>Các loại phí không bắt buộc</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <script>
+      window.onload = async () => {
+        let element_family = document.getElementById("ma_ho_khau");
+        axios
+          .get("http://localhost:3001/familyList/getAllFamily")
+          .then((res) => {
+            let families = res.data;
+            families.forEach((family) => {
+              if (family.ma_ho_khau == element_family.value) {
+                axios
+                  .get("http://localhost:3001/nhankhau/getAllUser")
+                  .then((value) => {
+                    let users = value.data;
+                    users.forEach((user) => {
+                      if (user.ma_nhan_khau === family.ma_chu_ho) {
+                        document.getElementsByClassName("ten_chu_ho")[0].value =
+                          user.ten_nhan_khau;
+                        document.getElementsByClassName("ten_chu_ho")[1].value =
+                          user.ten_nhan_khau;
+                      }
+                    });
+                  });
+              }
+            });
+          });
+      };
+
+      async function getAllDetail(get) {
+        axios
+          .get("http://localhost:3001/familyList/getAllFamily")
+          .then((res) => {
+            let families = res.data;
+            families.forEach((family) => {
+              if (family.ma_ho_khau == get.value) {
+                axios
+                  .get("http://localhost:3001/nhankhau/getAllUser")
+                  .then((value) => {
+                    let users = value.data;
+                    users.forEach((user) => {
+                      if (user.ma_nhan_khau === family.ma_chu_ho) {
+                        document.getElementsByClassName("ten_chu_ho")[0].value =
+                          user.ten_nhan_khau;
+                        document.getElementsByClassName("ten_chu_ho")[1].value =
+                          user.ten_nhan_khau;
+                      }
+                    });
+                  });
+              }
+            });
+          });
+      }
+    </script>
+  </head>
+  <body>
+    <div>
+      <div>
+        <form
+          action="/fees/addDetailFees"
+          class="input wrap-input"
+          method="post">
+          <div class="wrap-input-one">
+            <div class="input-option">
+              <label for="ma_ho_khau">Chọn mã hộ</label>
+              <select
+                name="ma_ho_khau"
+                id="ma_ho_khau"
+                onchange="getAllDetail(this)">
+                <% if(families){ families.forEach(family => { %>
+                <option value="<%= family.ma_ho_khau%>">
+                  <%= family.ma_ho_khau%>
+                </option>
+                <% }) } %>
+              </select>
+            </div>
+            <div class="input-option">
+              <label for="feeName">Chọn tên khoản thu</label>
+              <select name="feeName" id="feeName">
+                <% if(fees) { fees.forEach(fee => { %>
+                <option value="<%= fee.feeName%>"><%= fee.feeName%></option>
+                <% }) } %>
+              </select>
+            </div>
+          </div>
+          <div class="wrap-input-two">
+            <div class="input-option">
+              <label for="ten_chu_ho">Tên chủ hộ</label>
+              <input type="text" class="ten_chu_ho" disabled />
+              <input type="text" name="ten_chu_ho" class="ten_chu_ho" hidden />
+            </div>
+            <div class="input-option">
+              <label for="total_money">Số tiền nộp</label>
+              <input type="number" name="total_money" id="total_money" />
+            </div>
+          </div>
+          <div class="input-btn">
+            <input type="submit" value="Thêm" />
+          </div>
+        </form>
+      </div>
+      <div class="wrap-table">
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th colspan="5">CHI TIẾT CÁC KHOẢN ĐÓNG GÓP KHÔNG BẮT BUỘC</th>
+            </tr>
+            <tr>
+              <th>Mã hộ gia đình</th>
+              <th>Tên chủ độ</th>
+              <th>Tên khoản đóng</th>
+              <th>Số tiền</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if(otherFees) { otherFees.forEach( fee => { %>
+            <tr>
+              <td><%= fee.ma_ho_khau %></td>
+              <td><%= fee.ten_chu_ho %></td>
+              <td><%= fee.feeName %></td>
+              <td><%= fee.total_money %></td>
+            </tr>
+            <% }) } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

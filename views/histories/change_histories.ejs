@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lịch sử thay đổi nhân khẩu</title>
+    <link rel="stylesheet" href="/css/change_histories.css" />
+  </head>
+  <body>
+    <div>
+      <div class="wrap-title">
+        <div class="change-title">LỊCH SỬ NHÂN KHẨU</div>
+        <div class="change-title">Mã hộ khẩu: <%= id_family%></div>
+      </div>
+      <div class="wrap-button">
+        <button>
+          <a href="/histories/<%= id_family %>">Lịch sử thay đổi</a>
+        </button>
+        <button>
+          <a href="/histories/<%= id_family %>/tam_tru">Lịch sử tạm trú</a>
+        </button>
+        <button>
+          <a href="/histories/<%= id_family %>/tam_vang">Lịch sử tạm vắng</a>
+        </button>
+      </div>
+      <div>
+        <div class="history-title">LỊCH SỬ THAY ĐỔI NHÂN KHẨU</div>
+        <div>
+          <table class="styled-table">
+            <thead>
+              <tr>
+                <th colspan="5" style="text-align: center">
+                  THAY ĐỔI VỀ CHỦ HỘ
+                </th>
+              </tr>
+              <tr>
+                <th>Mã chủ hộ cũ</th>
+                <th>Họ tên chủ hộ cũ</th>
+                <th>Mã chủ hộ mới</th>
+                <th>Họ tên chủ hộ mới</th>
+                <th>Ngày thay đổi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% chuho_history.forEach( data => { %>
+              <tr>
+                <td><%= data.old_id %></td>
+                <td><%= data.old_name %></td>
+                <td><%= data.new_id %></td>
+                <td><%= data.new_name %></td>
+                <td><%= data.date_thay_doi %></td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <table class="styled-table">
+            <thead>
+              <tr>
+                <th colspan="6" style="text-align: center">
+                  THAY ĐỔI VỀ THÀNH VIÊN
+                </th>
+              </tr>
+              <tr>
+                <th>Mã nhân khẩu</th>
+                <th>Họ và tên</th>
+                <th>Tình trạng</th>
+                <th>Ngày mất</th>
+                <th>Ngày chuyển đi</th>
+                <th>Nơi chuyển tới</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% family_history.forEach(data => { %>
+              <tr>
+                <td><%= data.ma_nhan_khau %></td>
+                <td><%= data.ten_nhan_khau %></td>
+                <td><%= data.status %></td>
+                <td><%= data.date_mat %></td>
+                <td><%= data.date_chuyen_di %></td>
+                <td><%= data.noi_chuyen_toi %></td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

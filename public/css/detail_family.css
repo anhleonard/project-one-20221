@@ -1,0 +1,118 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Signika', sans-serif;
+  font-size: 16px;
+}
+.btn-title {
+  padding: 5px;
+  background-color: white;
+  margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+}
+table,th {
+    width: 50%;
+}
+  table,
+  th,
+  td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  th,
+  td {
+    padding: 5px;
+    text-align: left;
+  }
+  .form-delete-sure {
+    border: 1px solid #666; 
+    width: 200px;
+    display: none;
+  }
+  .form-status {
+    display: none;
+  }
+
+  .detail-chuho-info {
+    display: flex;
+    /* justify-content: space-between; */
+  }
+  .table-detail-info {
+    width: 60%;
+  }
+  .table-detail-info > div {
+    width: 1425px;
+  }
+
+  .change_chuho {
+    width: 600px;
+  }
+
+.change-detail-input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+}
+.change-detail-input input,
+.change-detail-input select,
+.change-detail-input textarea {
+  width: 75%;
+  padding: 5px;
+}
+.change-btn {
+  padding: 5px;
+  width: 100px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* change-relation */
+
+.change-relation {
+  display: flex;
+  justify-content: space-between;
+}
+.change-relation-content {
+  width: 75%;
+}
+.change-relation-content-alone {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.select-relation {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.option {
+  margin: 5px 0;
+}
+.form-moved {
+  display: none;
+}
+.form-moved-style {
+  width: 600px;
+  border: 1px solid #999;
+  border-radius: 5px;
+  padding: 5px 12px;
+}
+.form-moved-item {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+}
+.form-moved-item input,
+.form-moved-item textarea {
+  padding: 5px;
+  width: 65%;
+}

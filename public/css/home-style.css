@@ -1,0 +1,36 @@
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10%;
+}
+.content-title {
+    font-size: 45px;
+    font-weight: 600;
+    margin: 10px 0;
+}
+.content-design-title {
+    font-size: 30px;
+    font-weight: 400;
+    margin: 40px 0;
+    text-align: center;
+}
+.content-design-button{
+    display: flex;
+    flex-direction: row;
+    width: 1000px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.content-design-button button {
+    width: 240px;
+    margin: 20px;
+    padding: 15px;
+    background-color: white;
+}
+.content-design-button button:hover {
+    transform: scale(1.2, 1.2);
+    border-radius: 5px;
+    background-color: rgb(248, 243, 243) !important;
+}

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thống kê theo độ tuổi</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/thongke.css" />
+    <script src="/js/thongke.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <ul id="nav">
+        <li><a href="/">Trang Chủ</a></li>
+        <li><a href="/nhankhau">Nhân Khẩu</a></li>
+        <li><a href="/familyList">Hộ khẩu</a></li>
+        <li>
+          <a href="/papers/giay_tam_tru">Khai Báo</a>
+          <ul class="subnav">
+            <li><a href="/papers/giay_tam_tru">Tạm Trú</a></li>
+            <li><a href="/papers/giay_tam_vang">Tạm Vắng</a></li>
+          </ul>
+        </li>
+        <li><a href="/fees">Khoản Phí</a></li>
+        <li>
+          <a class="active" href="/thongke" class="active">Thống Kê</a>
+          <ul class="subnav">
+            <li><a href="/thongke">Giới tính</a></li>
+            <li><a href="/thongke/ages">Độ tuổi</a></li>
+            <li><a href="/thongke/foreigners">Tạm trú/ Tạm vắng</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="sidebar bar-block card animate-left"
+      style="display: none"
+      id="mySidebar">
+      <button class="bar-item button large" onclick="sidebar_close()">
+        Close &times;
+      </button>
+      <button class="bar-item button large" onclick="mamnon()">Mầm Non</button>
+      <button class="bar-item button large" onclick="maugiao()">
+        Mẫu Giáo
+      </button>
+      <button class="bar-item button large" onclick="capmot()">Cấp Một</button>
+      <button class="bar-item button large" onclick="caphai()">Cấp Hai</button>
+      <button class="bar-item button large" onclick="capba()">Cấp Ba</button>
+      <button class="bar-item button large" onclick="work()">
+        Độ Tuổi Lao Động
+      </button>
+      <button class="bar-item button large" onclick="retire()">Nghỉ Hưu</button>
+    </div>
+    <button
+      style="
+        margin-top: 46px;
+        background-color: #333;
+        color: #fff;
+        position: fixed;
+        top: 0;
+        left: 0;
+      "
+      id="openNav"
+      class="button xlarge"
+      onclick="sidebar_open()">
+      &#9776;
+    </button>
+    <div id="main">
+      <div class="title-pages">THỐNG KÊ THEO ĐỘ TUỔI</div>
+
+      <div id="mn">
+        <div class="title-table">Độ Tuổi Mầm Non</div>
+        <div class="table">
+          <table class="styled-table">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Mã Hộ Khẩu</th>
+                <th>Mã Nhân Khẩu</th>
+                <th>Họ và tên</th>
+                <th>Giới Tính</th>
+                <th>Ngày-Tháng-Năm sinh</th>
+              </tr>
+            </thead>
+            <% for (let i = 0; i < ages.MN.length; i++) {%>
+            <tr>
+              <td><%= i+1%></td>
+              <td><%= ages.MN[i].ma_ho_khau %></td>
+              <td><%= ages.MN[i].ma_nhan_khau %></td>
+              <td><%= ages.MN[i].ten_nhan_khau %></td>
+              <td><%= ages.MN[i].gentle %></td>
+              <td><%= ages.MN[i].birthday %></td>
+            </tr>
+            <% } %>
+          </table>
+        </div>
+      </div>
+      <div id="mg" style="display: none">
+        <div class="title-table">Độ Tuổi Mẫu Giáo</div>
+        <div class="table">
+          <table class="styled-table">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Mã Hộ Khẩu</th>
+                <th>Mã Nhân Khẩu</th>
+                <th>Họ và tên</th>
+                <th>Giới Tính</th>
+                <th>Ngày-Tháng-Năm sinh</th>
+              </tr>
+            </thead>
+            <% for (let i = 0; i < ages.MG.length; i++) {%>
+            <tr>
+              <td><%= i+1%></td>
+              <td><%= ages.MG[i].ma_ho_khau %></td>
+              <td><%= ages.MG[i].ma_nhan_khau %></td>
+              <td><%= ages.MG[i].ten_nhan_khau %></td>
+              <td><%= ages.MG[i].gentle %></td>
+              <td><%= ages.MG[i].birthday %></td>
+            </tr>
+            <% } %>
+          </table>
+        </div>
+      </div>
+
+      <div id="c1" style="display: none">
+        <div class="title-table">Độ Tuổi Cấp Một</div>
+        <div class="table">
+          <table class="styled-table">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Mã Hộ Khẩu</th>
+                <th>Mã Nhân Khẩu</th>
+                <th>Họ và tên</th>
+                <th>Giới Tính</th>
+                <th>Ngày-Tháng-Năm sinh</th>
+              </tr>
+            </thead>
+            <% for (let i = 0; i < ages.C1.length; i++) {%>
+            <tr>
+              <td><%= i+1%></td>
+              <td><%= ages.C1[i].ma_ho_khau %></td>
+              <td><%= ages.C1[i].ma_nhan_khau %></td>
+              <td><%= ages.C1[i].ten_nhan_khau %></td>
+              <td><%= ages.C1[i].gentle %></td>
+              <td><%= ages.C1[i].birthday %></td>
+            </tr>
+            <% } %>
+          </table>
+        </div>
+      </div>
+
+      <div id="c2" style="display: none">
+        <div class="title-table">Độ Tuổi Cấp Hai</div>
+        <div class="table">
+          <table class="styled-table">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Mã Hộ Khẩu</th>
+                <th>Mã Nhân Khẩu</th>
+                <th>Họ và tên</th>
+                <th>Giới Tính</th>
+                <th>Ngày-Tháng-Năm sinh</th>
+              </tr>
+            </thead>
+            <% for (let i = 0; i < ages.C3.length; i++) {%>
+            <tr>
+              <td><%= i+1%></td>
+              <td><%= ages.C3[i].ma_ho_khau %></td>
+              <td><%= ages.C3[i].ma_nhan_khau %></td>
+              <td><%= ages.C3[i].ten_nhan_khau %></td>
+              <td><%= ages.C3[i].gentle %></td>
+              <td><%= ages.C3[i].birthday %></td>
+            </tr>
+            <% } %>
+          </table>
+        </div>
+      </div>
+      <div id="c3" style="display: none">
+        <div class="title-table">Độ Tuổi Cấp Ba</div>
+        <div class="table">
+          <table class="styled-table">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Mã Hộ Khẩu</th>
+                <th>Mã Nhân Khẩu</th>
+                <th>Họ và tên</th>
+                <th>Giới Tính</th>
+                <th>Ngày-Tháng-Năm sinh</th>
+              </tr>
+            </thead>
+            <% for (let i = 0; i < ages.C3.length; i++) {%>
+            <tr>
+              <td><%= i+1%></td>
+              <td><%= ages.C3[i].ma_ho_khau %></td>
+              <td><%= ages.C3[i].ma_nhan_khau %></td>
+              <td><%= ages.C3[i].ten_nhan_khau %></td>
+              <td><%= ages.C3[i].gentle %></td>
+              <td><%= ages.C3[i].birthday %></td>
+            </tr>
+            <% } %>
+          </table>
+        </div>
+      </div>
+      <div id="work" style="display: none">
+        <div class="title-table">Độ Tuổi Lao Động</div>
+        <div class="table">
+          <table class="styled-table">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Mã Hộ Khẩu</th>
+                <th>Mã Nhân Khẩu</th>
+                <th>Họ và tên</th>
+                <th>Giới Tính</th>
+                <th>Ngày-Tháng-Năm sinh</th>
+              </tr>
+            </thead>
+            <% for (let i = 0; i < ages.WORK.length; i++) {%>
+            <tr>
+              <td><%= i+1%></td>
+              <td><%= ages.WORK[i].ma_ho_khau %></td>
+              <td><%= ages.WORK[i].ma_nhan_khau %></td>
+              <td><%= ages.WORK[i].ten_nhan_khau %></td>
+              <td><%= ages.WORK[i].gentle %></td>
+              <td><%= ages.WORK[i].birthday %></td>
+            </tr>
+            <% } %>
+          </table>
+        </div>
+      </div>
+
+      <div id="retire" style="display: none">
+        <div class="title-table">Độ Tuổi Nghỉ Hưu</div>
+        <div class="table">
+          <table class="styled-table">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Mã Hộ Khẩu</th>
+                <th>Mã Nhân Khẩu</th>
+                <th>Họ và tên</th>
+                <th>Giới Tính</th>
+                <th>Ngày-Tháng-Năm sinh</th>
+              </tr>
+            </thead>
+            <% for (let i = 0; i < ages.RETIRE.length; i++) {%>
+            <tr>
+              <td><%= i+1%></td>
+              <td><%= ages.RETIRE[i].ma_ho_khau %></td>
+              <td><%= ages.RETIRE[i].ma_nhan_khau %></td>
+              <td><%= ages.RETIRE[i].ten_nhan_khau %></td>
+              <td><%= ages.RETIRE[i].gentle %></td>
+              <td><%= ages.RETIRE[i].birthday %></td>
+            </tr>
+            <% } %>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

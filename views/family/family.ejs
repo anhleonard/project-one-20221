@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/family.css" />
+    <script src="/js/family.js"></script>
+    <title>Danh sách Hộ Khẩu</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Signika:wght@300;600&display=swap"
+      rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+  </head>
+
+  <body>
+    <div id="header">
+      <ul id="nav">
+        <li><a href="/">Trang Chủ</a></li>
+        <li><a href="/nhankhau">Nhân Khẩu</a></li>
+        <li><a class="active" href="/familyList">Hộ khẩu</a></li>
+        <li>
+          <a href="/papers/giay_tam_tru">Khai Báo</a>
+          <ul class="subnav">
+            <li><a href="/papers/giay_tam_tru">Tạm Trú</a></li>
+            <li><a href="/papers/giay_tam_vang">Tạm Vắng</a></li>
+          </ul>
+        </li>
+        <li><a href="/fees">Khoản Phí</a></li>
+        <li>
+          <a href="/thongke">Thống Kê</a>
+          <ul class="subnav">
+            <li><a href="/thongke">Giới tính</a></li>
+            <li><a href="/thongke/ages">Độ tuổi</a></li>
+            <li><a href="/thongke/foreigners">Tạm trú/ Tạm vắng</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div style="margin-top: 55px">
+      <form
+        action="/familyList/search_family"
+        id="search-family"
+        method="post"></form>
+      <form action="" id="delete-family" method="post"></form>
+      <div class="action-options">
+        <input
+          type="search"
+          name="search_information"
+          form="search-family"
+          style="display: block"
+          placeholder="search here ..." />
+        <select
+          name="search_option"
+          id=""
+          form="search-family"
+          style="display: block">
+          <option value="ma_ho_khau">Mã hộ khẩu</option>
+          <option value="ten_chu_ho">Tên chủ hộ</option>
+        </select>
+        <input
+          type="submit"
+          form="search-family"
+          class="action-options-submit"
+          style="display: block"
+          value="Tìm kiếm" />
+      </div>
+      <div class="wrap-table">
+        <table class="styled-table">
+          <caption>
+            DANH SÁCH HỘ KHẨU
+          </caption>
+          <thead>
+            <tr>
+              <th>Mã hộ khẩu</th>
+              <th>Tên chủ hộ</th>
+              <th>Địa chỉ</th>
+              <th>Số lượng thành viên</th>
+              <th>Các khoản đóng góp</th>
+              <th>Chi tiết hộ</th>
+              <th>Xóa hộ</th>
+              <th>Lịch sử</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if(families) { families.forEach( family => { %>
+            <tr>
+              <td><%= family.ma_ho_khau %></td>
+              <td><%= family.ten_chu_ho %></td>
+              <td><%= family.address %></td>
+              <td><%= family.countPerson %></td>
+              <td>
+                <a href="/fees/check_fees/<%= family.ma_ho_khau%>"
+                  >Chi tiết các khoản đóng</a
+                >
+              </td>
+              <td>
+                <a href="/familyList/detail_family/<%= family.ma_ho_khau %> "
+                  >Xem chi tiết</a
+                >
+              </td>
+              <td>
+                <button
+                  style="padding: 2px; width: 70px"
+                  onclick="checkNumberMembers(event,this)"
+                  id="<%= family.ma_ho_khau%>"
+                  type="button"
+                  form="delete-family">
+                  Xóa hộ
+                </button>
+              </td>
+              <td>
+                <a href="histories/<%= family.ma_ho_khau %>"
+                  >Lịch sử thay đổi</a
+                >
+              </td>
+            </tr>
+            <% }) }%>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

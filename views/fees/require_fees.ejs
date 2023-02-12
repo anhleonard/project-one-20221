@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <link rel="stylesheet" href="/css/fees.css" />
+    <link rel="stylesheet" href="/css/require_fee.css" />
+    <script src="/js/require_fees.js"></script>
+    <script src="/js/main_fees.js"></script>
+    <title>Các loại phí bắt buộc</title>
+  </head>
+  <script>
+    window.onload = async () => {
+      
+      let idFamily = document.getElementById('ma_ho_khau').value;
+      let nameFee = document.getElementById('feeName').value;
+      
+      let getRequireFees = await axios.get('http://localhost:3001/fees/get_all_require_fees');
+      let requireFees = getRequireFees.data;
+      for(let fee of requireFees) {
+        if(fee.feeName === nameFee && fee.ma_ho_khau == +idFamily) {
+            document.getElementById('red-alert').innerHTML = 'Hộ này đã đóng tiền phí!';
+            document.getElementById('btn-submit').disabled = true;
+            break;
+        }
+        else{
+          document.getElementById('red-alert').innerHTML = '';
+          document.getElementById('btn-submit').disabled = false;
+        }
+      }
+
+      let element_feeName = document.getElementById("feeName");
+      let all_fees = await axios.get(
+        "http://localhost:3001/fees/all_fees_in_here"
+      );
+      let fees = all_fees.data;
+      for (let fee of fees) {
+        if (fee.feeName === element_feeName.value) {
+          document.getElementsByClassName("average")[0].value = fee.average;
+          document.getElementsByClassName("average")[1].value = fee.average;
+        }
+      }
+
+      //
+      let element_family = document.getElementById("ma_ho_khau");
+      axios.get("http://localhost:3001/familyList/getAllFamily").then((res) => {
+        let families = res.data;
+        families.forEach((family) => {
+          if (family.ma_ho_khau == element_family.value) {
+            axios
+              .get("http://localhost:3001/nhankhau/getAllUser")
+              .then((value) => {
+                let users = value.data;
+                users.forEach((user) => {
+                  if (user.ma_nhan_khau === family.ma_chu_ho) {
+                    document.getElementsByClassName("ten_chu_ho")[0].value =
+                      user.ten_nhan_khau;
+                    document.getElementsByClassName("ten_chu_ho")[1].value =
+                      user.ten_nhan_khau;
+                  }
+                });
+              });
+            let tb_money = document.getElementsByClassName("average")[0].value;
+            document.getElementsByClassName("sumMember")[0].value =
+              family.person.length;
+            document.getElementsByClassName("sumMember")[1].value =
+              family.person.length;
+            document.getElementsByClassName("tongTien")[0].value =
+              family.person.length * tb_money * 12;
+            document.getElementsByClassName("tongTien")[1].value =
+              family.person.length * tb_money * 12;
+          }
+        });
+      });
+    };
+  </script>
+  <body>
+    <div>
+      <div>
+        <form
+          action="/fees/add_require_fee"
+          method="post"
+          class="input wrap-input">
+          <div class="wrap-input-one">
+            <div class="option-check">
+              <label for="ma_ho_khau" style="display: block">Mã hộ</label>
+              <div class="option-check-input">
+                <select
+                  name="ma_ho_khau"
+                  id="ma_ho_khau"
+                  onchange="getAllDetail(this)">
+                  <% if(families) { families.forEach( data => { %>
+                  <option value="<%= data.ma_ho_khau %>">
+                    <%= data.ma_ho_khau %>
+                  </option>
+                  <% }) } %>
+                </select>
+                <p id="red-alert"></p>
+              </div>
+            </div>
+            <div class="input-option">
+              <label for="feeName">Chọn tên khoản thu</label>
+              <select name="feeName" id="feeName" onchange="getDetailFee(this)">
+                <% if(fees) { fees.forEach(fee => { %>
+                <option value="<%= fee.feeName%>"><%= fee.feeName%></option>
+                <% }) } %>
+              </select>
+            </div>
+          </div>
+          <div class="wrap-input-two">
+            <div class="input-option">
+              <label for="ten_chu_ho">Tên chủ hộ</label>
+              <input type="text" value="" class="ten_chu_ho" disabled />
+              <input
+                type="text"
+                value=""
+                name="ten_chu_ho"
+                class="ten_chu_ho"
+                hidden />
+            </div>
+            <div class="input-option">
+              <label for="sumMember">Số thành viên</label>
+              <input type="number" class="sumMember" disabled />
+              <input type="number" name="sumMember" class="sumMember" hidden />
+            </div>
+            <div class="input-option">
+              <label for="average">Người/tháng</label>
+              <input type="number" class="average" disabled />
+              <input type="number" class="average" hidden />
+            </div>
+            <div class="input-option">
+              <label for="tongTien">Số tiền</label>
+              <input type="number" class="tongTien" disabled />
+              <input type="number" name="tongTien" class="tongTien" hidden />
+            </div>
+          </div>
+          <div class="input-btn">
+            <input type="submit" value="Thêm" id="btn-submit" />
+          </div>
+        </form>
+      </div>
+      <div class="wrap-table">
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th colspan="5">THỐNG KÊ CÁC KHOẢN PHÍ BẮT BUỘC</th>
+            </tr>
+            <tr>
+              <th>Tên khoản thu</th>
+              <th>Mã hộ gia đình</th>
+              <th>Tên chủ hộ</th>
+              <th>Số tiền nộp</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if(requireFees) { requireFees.forEach( data => { %>
+            <tr>
+              <td><%= data.feeName %></td>
+              <td><%= data.ma_ho_khau %></td>
+              <td><%= data.ten_chu_ho %></td>
+              <td><%= data.tongTien %></td>
+            </tr>
+            <% }) } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

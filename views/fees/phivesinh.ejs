@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <link rel="stylesheet" href="/css/fees.css" />
+    <link rel="stylesheet" href="/css/thongke.css" />
+    <script src="/js/main_fees.js"></script>
+    <title>Phí vệ sinh</title>
+    <script>
+      function getAllDetail(get) {
+        axios
+          .get("http://localhost:3001/familyList/getAllFamily")
+          .then((res) => {
+            let families = res.data;
+            families.forEach((family) => {
+              if (family.ma_ho_khau == get.value) {
+                axios
+                  .get("http://localhost:3001/nhankhau/getAllUser")
+                  .then((value) => {
+                    let users = value.data;
+                    users.forEach((user) => {
+                      if (user.ma_nhan_khau === family.ma_chu_ho) {
+                        document.getElementsByClassName("ten_chu_ho")[0].value =
+                          user.ten_nhan_khau;
+                        document.getElementsByClassName("ten_chu_ho")[1].value =
+                          user.ten_nhan_khau;
+                      }
+                    });
+                  });
+                document.getElementsByClassName("sumMember")[0].value =
+                  family.person.length;
+                document.getElementsByClassName("sumMember")[1].value =
+                  family.person.length;
+                document.getElementsByClassName("tongTien")[0].value =
+                  family.person.length * 6000 * 12;
+                document.getElementsByClassName("tongTien")[1].value =
+                  family.person.length * 6000 * 12;
+              }
+            });
+          });
+      }
+    </script>
+  </head>
+  <body>
+    <div>
+      <div>
+        <form action="/fees/addPhiVS" method="post" class="input">
+          <div>
+            <label for="ma_ho_khau">Mã hộ</label>
+            <select
+              name="ma_ho_khau"
+              id="ma_ho_khau"
+              onchange="getAllDetail(this)">
+              <% if(allFamily) { allFamily.forEach( data => { %>
+              <option value="<%= data.ma_ho_khau %> ">
+                <%= data.ma_ho_khau %>
+              </option>
+              <% }) } %>
+            </select>
+          </div>
+          <div>
+            <label for="ten_chu_ho">Tên chủ hộ</label>
+            <input type="text" value="" class="ten_chu_ho" disabled />
+            <input
+              type="text"
+              value=""
+              name="ten_chu_ho"
+              class="ten_chu_ho"
+              hidden />
+          </div>
+          <div>
+            <label for="sumMember">Số thành viên</label>
+            <input type="number" class="sumMember" disabled />
+            <input type="number" name="sumMember" class="sumMember" hidden />
+          </div>
+          <div>
+            <label for="tongTien">Số tiền</label>
+            <input type="number" class="tongTien" disabled />
+            <input type="number" name="tongTien" class="tongTien" hidden />
+          </div>
+          <div>
+            <input type="submit" value="Thêm" />
+          </div>
+        </form>
+      </div>
+      <div>
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th colspan="4">THỐNG KÊ THU PHÍ VỆ SINH</th>
+            </tr>
+            <tr>
+              <th>Mã hộ gia đình</th>
+              <th>Tên chủ hộ</th>
+              <th>Số tiền nộp</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if(phi_vs) { phi_vs.forEach( data => { %>
+            <tr>
+              <td><%= data.ma_ho_khau %></td>
+              <td><%= data.ten_chu_ho %></td>
+              <td><%= data.tongTien %></td>
+            </tr>
+            <% }) } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update User</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Signika:wght@300;600&display=swap"
+      rel="stylesheet" />
+    <script src="/js/nhankhau.js"></script>
+    <script src="/js/update_user.js"></script>
+    <link rel="stylesheet" href="/css/update_user.css" />
+  </head>
+
+  <script>
+    window.onload = async () => {
+      let url = window.location.href;
+      let id_user = url.split(
+        "http://localhost:3001/nhankhau/select-update/user/"
+      )[1];
+
+      let results = await axios.get(
+        "http://localhost:3001/nhankhau/getAllUser"
+      );
+      let users = results.data;
+      let birthday, ngay_cap_cmnd, date_thuong_tru, relation;
+      for (let user of users) {
+        if (user._id === id_user) {
+          birthday = user.birthday;
+          ngay_cap_cmnd = user.ngay_cap_cmnd;
+          date_thuong_tru = user.date_thuong_tru;
+          relation = user.relation;
+        }
+      }
+      document.getElementById("birthday").value = birthday;
+      document.getElementById("ngay_cap_cmnd").value = ngay_cap_cmnd;
+      document.getElementById("date_thuong_tru").value = date_thuong_tru;
+      document.getElementById("relation").value = relation;
+    };
+  </script>
+
+  <body>
+    <div class="form-update-people">
+      <div class="form-update-child">
+        <p class="update-title">CẬP NHẬT NHÂN KHẨU</p>
+        <% if(user) { %>
+        <form
+          method="post"
+          class="update-form"
+          action="/nhankhau/update/user/<%= user._id %>?_method=PUT">
+          <div class="update">
+            <div class="update-label">
+              <label for="ma_ho_khau">Mã hộ khẩu</label>
+            </div>
+            <div class="update-text">
+              <input
+                type="number"
+                id="ma_ho_khau"
+                name="ma_ho_khau"
+                value="<%= user.ma_ho_khau %>"
+                hidden />
+              <input value="<%= user.ma_ho_khau %>" disabled />
+              <p></p>
+            </div>
+          </div>
+          <div class="update">
+            <div class="update-label">
+              <label for="role">Chủ hộ</label>
+            </div>
+            <div class="update-text update-relation">
+              <% if(user.role == 'on') { %>
+              <div>
+                <input
+                  type="checkbox"
+                  id="role"
+                  name="role"
+                  onchange="isRole()"
+                  checked
+                  hidden />
+                <input type="checkbox" checked disabled />
+              </div>
+              <div>
+                <label for="relation">Quan hệ với chủ hộ</label>
+                <select
+                  id="relation"
+                  name="relation"
+                  value="<%= user.relation %> "
+                  disabled>
+                  <option value="Ông">Ông</option>
+                  <option value="Bà">Bà</option>
+                  <option value="Bố">Bố</option>
+                  <option value="Mẹ">Mẹ</option>
+                  <option value="Vợ">Vợ</option>
+                  <option value="Chồng">Chồng</option>
+                  <option value="Con">Con</option>
+                  <option value="Cháu">Cháu</option>
+                </select>
+              </div>
+              <% } else { %>
+              <div>
+                <input
+                  type="checkbox"
+                  id="role"
+                  name="role"
+                  onchange="isRole()"
+                  hidden />
+                <input type="checkbox" disabled />
+              </div>
+              <div>
+                <label for="relation">Quan hệ với chủ hộ</label>
+                <select
+                  id="relation"
+                  name="relation"
+                  value="<%= user.relation %> ">
+                  <option value="Ông">Ông</option>
+                  <option value="Bà">Bà</option>
+                  <option value="Bố">Bố</option>
+                  <option value="Mẹ">Mẹ</option>
+                  <option value="Vợ">Vợ</option>
+                  <option value="Chồng">Chồng</option>
+                  <option value="Con">Con</option>
+                  <option value="Cháu">Cháu</option>
+                </select>
+              </div>
+              <% } %>
+            </div>
+          </div>
+          <div class="update">
+            <div class="update-label">
+              <label for="ma_nhan_khau">Mã nhân khẩu</label>
+            </div>
+            <div class="update-text">
+              <input
+                type="text "
+                id="ma_nhan_khau"
+                name="ma_nhan_khau"
+                value="<%= user.ma_nhan_khau %> "
+                hidden />
+              <input value="<%= user.ma_nhan_khau %> " disabled />
+              <p class="update-alert"></p>
+            </div>
+          </div>
+          <div class="update">
+            <div class="update-label">
+              <label for="ten_nhan_khau">Tên nhân khẩu</label>
+            </div>
+            <div class="update-text">
+              <input
+                type="text"
+                id="ten_nhan_khau"
+                name="ten_nhan_khau"
+                value="<%= user.ten_nhan_khau %> " />
+              <p class="update-alert"></p>
+            </div>
+          </div>
+          <div class="update">
+            <div class="update-label">
+              <label for="bi_danh">Bí danh (nếu có)</label>
+            </div>
+            <div class="update-text">
+              <input
+                type="text"
+                id="bi_danh"
+                name="bi_danh"
+                value="<%= user.bi_danh %> " />
+              <p class="update-alert"></p>
+            </div>
+          </div>
+
+          <div class="update">
+            <div class="update-label">
+              <label for="birthday">Ngày, tháng, năm sinh</label>
+            </div>
+            <div class="update-text">
+              <input type="date" id="birthday" name="birthday" />
+              <p class="update-alert"></p>
+            </div>
+          </div>
+
+          <div class="update">
+            <div class="update-label">
+              <label for="noi_sinh">Nơi sinh</label>
+            </div>
+            <div class="update-text">
+              <input
+                type="text"
+                id="noi_sinh"
+                name="noi_sinh"
+                value="<%= user.noi_sinh %> " />
+              <p class="update-alert"></p>
+            </div>
+          </div>
+          <div class="update">
+            <div class="update-label">
+              <label for="nguyen_quan">Nguyên quán</label>
+            </div>
+            <div class="update-text">
+              <input
+                type="text"
+                id="nguyen_quan"
+                name="nguyen_quan"
+                value="<%= user.nguyen_quan %> " />
+              <p class="update-alert"></p>
+            </div>
+          </div>
+          <div class="update">
+            <div class="update-label">
+              <label for="dan_toc">Dân tộc</label>
+            </div>
+            <div class="update-text">
+              <input
+                type="text"
+                id="dan_toc"
+                name="dan_toc"
+                value="<%= user.dan_toc %> " />
+              <p class="update-alert"></p>
+            </div>
+          </div>
+          <div class="update">
+            <div class="update-label">
+              <label for="nghe_nghiep">Nghề nghiệp</label>
+            </div>
+            <div class="update-text">
+              <input
+                type="text"
+                id="nghe_nghiep"
+                name="nghe_nghiep"
+                value="<%= user.nghe_nghiep %> " />
+              <p class="update-alert"></p>
+            </div>
+          </div>
+          <div class="update">
+            <div class="update-label">
+              <label for="noi_lam_viec">Nơi làm việc</label>
+            </div>
+            <div class="update-text">
+              <input
+                type="text"
+                id="noi_lam_viec"
+                name="noi_lam_viec"
+                value="<%= user.noi_lam_viec %> " />
+              <p class="update-alert"></p>
+            </div>
+          </div>
+          <div class="update combo">
+            <div class="update-label">
+              <label for="cmndNumber">Số CMND/CCCD</label>
+            </div>
+            <div class="update-text update-combo">
+              <div>
+                <input
+                  type="number"
+                  id="cmndNumber"
+                  name="cmndNumber"
+                  value="<%= user.cmndNumber %>" />
+                <p class="update-alert"></p>
+              </div>
+              <div>
+                <label for="ngay_cap_cmnd">Ngày cấp CMND/CCCD</label>
+                <div>
+                  <input type="date" id="ngay_cap_cmnd" name="ngay_cap_cmnd" />
+                  <p class="update-alert"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="update">
+            <div class="update-label">
+              <label for="noi_cap_cmnd">Nơi cấp CMND/CCCD</label>
+            </div>
+            <div class="update-text">
+              <input
+                type="text"
+                id="noi_cap_cmnd"
+                name="noi_cap_cmnd"
+                value="<%= user.noi_cap_cmnd %> " />
+              <p class="update-alert"></p>
+            </div>
+          </div>
+          <div class="update">
+            <div class="update-label">
+              <label for="date_thuong_tru"
+                >Ngày,tháng, năm đăng ký thường trú</label
+              >
+            </div>
+            <div class="update-text">
+              <input type="date" id="date_thuong_tru" name="date_thuong_tru" />
+              <p class="update-alert"></p>
+            </div>
+          </div>
+          <div class="update">
+            <div class="update-label">
+              <label for="before_live">Nơi thường trú trước đây</label>
+            </div>
+            <div class="update-text">
+              <input
+                type="text"
+                id="before_live"
+                name="before_live"
+                value="<%= user.before_live %> " />
+              <p class="update-alert"></p>
+            </div>
+          </div>
+          <div class="submit-btn-end">
+            <input type="submit" value="CẬP NHẬT" />
+          </div>
+        </form>
+        <% } %>
+      </div>
+    </div>
+  </body>
+</html>

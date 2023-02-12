@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tạm Trú - Mã Hộ: <%= id %></title>
+    <link rel="stylesheet" href="/css/change_histories.css" />
+  </head>
+  <body>
+    <div>
+      <div class="wrap-title">
+        <div class="change-title">LỊCH SỬ NHÂN KHẨU</div>
+        <div class="change-title">SỔ TẠM TRÚ - MÃ HỘ: <%= id %></div>
+      </div>
+      <div class="wrap-button">
+        <button>
+          <a href="/histories/<%= id %>">Lịch sử thay đổi</a>
+        </button>
+        <button>
+          <a href="/histories/<%= id %>/tam_tru">Lịch sử tạm trú</a>
+        </button>
+        <button>
+          <a href="/histories/<%= id %>/tam_vang">Lịch sử tạm vắng</a>
+        </button>
+      </div>
+      <div>
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th>Họ và tên</th>
+              <th>Ngày sinh</th>
+              <th>Giới tính</th>
+              <th>Số CMND</th>
+              <th>Địa chỉ hiện tại</th>
+              <th>Địa chỉ tạm trú</th>
+              <th>Tạm trú từ ngày</th>
+              <th>Đến ngày</th>
+              <th>Lý do</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if(datas) { datas.forEach(data => { %>
+            <tr>
+              <td><%= data.fullName %></td>
+              <td><%= data.birthDay %></td>
+              <td><%= data.gentle %></td>
+              <td><%= data.cmndNumber %></td>
+              <td><%= data.curAddress %></td>
+              <td><%= data.tempoAddress %></td>
+              <td><%= data.fromDate %></td>
+              <td><%= data.toDate %></td>
+              <td><%= data.reason %></td>
+            </tr>
+            <% }) } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

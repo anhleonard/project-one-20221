@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/delete_family.css" />
+    <title>XÓA HỘ</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Signika:wght@300;600&display=swap"
+      rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+  </head>
+  <script>
+    window.onload = () => {
+      var move = document.getElementById("move");
+      var die = document.getElementById("die");
+      var date_move = document.getElementById("date_move");
+      var date_die = document.getElementById("date_die");
+    };
+
+    function selectStatus(get) {
+      let place = document.getElementById("noi_chuyen_toi");
+      let selected = get.checked;
+      if (get.id == "move" && selected) {
+        date_move.disabled = false;
+        place.disabled = false;
+        date_move.required = true;
+        place.required = true;
+        date_die.disabled = true;
+        date_die.required = false;
+      } else if (get.id == "die" && selected) {
+        date_move.disabled = true;
+        place.disabled = true;
+        date_move.required = false;
+        place.required = false;
+        date_die.disabled = false;
+        date_die.required = true;
+      }
+    }
+    function back() {
+      window.history.back();
+    }
+  </script>
+  <body>
+    <div>
+      <div>
+        <form
+          class="delete-form"
+          id="delete_form"
+          method="post"
+          action="/familyList/removed_family/<%= ma_ho_khau %> ">
+          <div class="delete-info">
+            <div class="delete-title">Thông tin chủ hộ</div>
+            <div>
+              <label for="ma_ho_khau">Mã hộ khẩu</label>
+              <input
+                type="text"
+                id="ma_ho_khau"
+                name="ma_ho_khau"
+                value="<%= ma_ho_khau %> " />
+            </div>
+            <div>
+              <label for="ma_chu_ho">Mã chủ hộ</label>
+              <input
+                type="text"
+                id="ma_chu_ho"
+                name="ma_chu_ho"
+                value="<%= ma_chu_ho %> " />
+            </div>
+            <div>
+              <label for="ten_chu_ho">Tên chủ hộ</label>
+              <input
+                type="text"
+                id="ten_chu_ho"
+                name="ten_chu_ho"
+                value="<%= ten_chu_ho %> " />
+            </div>
+          </div>
+          <div class="delete-status">
+            <label for="" class="delete-title">Tình trạng chủ hộ</label>
+            <div class="delete-status-info">
+              <div class="delete-input-statusMove">
+                <input
+                  type="radio"
+                  value="da_chuyen"
+                  name="status"
+                  id="move"
+                  onchange="selectStatus(this)" />
+                <label for="move">Chuyển đi nơi khác</label>
+              </div>
+              <div class="delete-input-dateMove-placeMove">
+                <div class="delete-input-dateMove">
+                  <label for="date_move">Ngày chuyển đi</label>
+                  <input
+                    type="date"
+                    id="date_move"
+                    name="date_chuyen_di"
+                    disabled />
+                </div>
+                <div class="delete-input-placeMove">
+                  <label for="noi_chuyen_toi">Nơi chuyển tới</label>
+                  <input
+                    type="text"
+                    id="noi_chuyen_toi"
+                    name="noi_chuyen_toi"
+                    disabled />
+                </div>
+              </div>
+            </div>
+            <div class="delete-status-detail">
+              <div class="delete-input-status">
+                <input
+                  type="radio"
+                  value="da_mat"
+                  name="status"
+                  id="die"
+                  onchange="selectStatus(this)" />
+                <label for="die">Đã mất</label>
+              </div>
+              <div class="delete-input-date">
+                <label for="date_die">Ngày mất</label>
+                <input type="date" id="date_die" name="date_mat" disabled />
+              </div>
+            </div>
+          </div>
+          <div class="delete-confirm">
+            <div class="delete-title">Xác nhận xóa hộ?</div>
+            <div>
+              <button
+                id="<%= ma_ho_khau %>"
+                class="delete-confirm-delete"
+                type="submit">
+                Xóa
+              </button>
+              <button id="delete-confirm-cancel" type="button" onclick="back()">
+                Hủy
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

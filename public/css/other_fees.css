@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@300;600&display=swap');
+
+* {
+    font-family: 'Signika', sans-serif;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    width: 55%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+.all-table {
+    display: flex;
+    justify-content: space-evenly;
+}
+.all-table > div {
+    max-width: 500px;
+}
+table tr th {
+    text-align: center;
+}
+table tr td {
+    text-align: center;
+}
+
+.wrap-table {
+    display: flex;
+    justify-content: center;
+}
+.wrap-input {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #999;
+    margin: 25px auto;
+    border-radius: 10px;
+    width: 55%;
+}
+.wrap-input-one {
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-between;
+}
+.wrap-input-two {
+    margin: 25px 0;
+    display: flex;
+    justify-content: space-between;
+}
+.input-option {
+    margin: 10px;
+    display: flex;
+    align-items: center;
+}
+.input-option label{
+    margin-right: 8px;
+    width: 140px;
+    display: block;
+}
+.input-option select,
+.input-option input{
+    width: 200px;
+    padding: 5px;
+    cursor: pointer;
+}
+.input-btn {
+    margin: 0 auto;
+}
+.input-btn input {
+    padding: 5px;
+    width: 100px;
+    margin-bottom: 25px;
+    cursor: pointer;
+}

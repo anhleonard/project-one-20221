@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Các khoản phí</title>
+    <link rel="stylesheet" href="/css/main_fees.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="/js/main_fees.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <ul id="nav">
+        <li><a href="/">Trang Chủ</a></li>
+        <li><a href="/nhankhau">Nhân Khẩu</a></li>
+        <li><a href="/familyList">Hộ khẩu</a></li>
+        <li>
+          <a href="/papers/giay_tam_tru">Khai Báo</a>
+          <ul class="subnav">
+            <li><a href="/papers/giay_tam_tru">Tạm Trú</a></li>
+            <li><a href="/papers/giay_tam_vang">Tạm Vắng</a></li>
+          </ul>
+        </li>
+        <li><a href="/fees" class="active">Khoản Phí</a></li>
+        <li>
+          <a href="/thongke">Thống Kê</a>
+          <ul class="subnav">
+            <li><a href="/thongke">Giới tính</a></li>
+            <li><a href="/thongke/ages">Độ tuổi</a></li>
+            <li><a href="/thongke/foreigners">Tạm trú/ Tạm vắng</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div style="margin-top: 45px">
+      <div class="wrap-add-activity">
+        <div class="wrap-btn">
+          <button
+            class="add-activity-btn"
+            onclick="tonggleFormAddActivity()"
+            style="width: 170px; cursor: pointer">
+            Thêm cuộc vận động
+          </button>
+          <button class="add-activity-btn" onclick="" style="width: 170px">
+            <a href="/fees/detail_require/" style="text-decoration: none"
+              >Phí bắt buộc</a
+            >
+          </button>
+          <button class="add-activity-btn" style="width: 170px">
+            <a href="/fees/otherFees/" style="text-decoration: none"
+              >Phí không bắt buộc</a
+            >
+          </button>
+        </div>
+        <div class="wrap-add-activity-form">
+          <form
+            class="add-activity-form"
+            action="/fees/add_activity"
+            method="post">
+            <div class="add-activity-form-name">
+              <label for="name_activity" style="display: block"
+                >Tên cuộc vận động</label
+              >
+              <input type="text" name="name_activity" id="name_activity" required/>
+            </div>
+            <div class="add-activity-form-require">
+              <div class="add-activity-form-require-check">
+                <label for="require" style="display: block">Bắt buộc</label>
+                <input
+                  type="checkbox"
+                  name="require"
+                  id="require"
+                  onchange="checkedRequire(this)" />
+              </div>
+              <div class="add-activity-form-require-money">
+                <label for="money">Số tiền(người/tháng)</label>
+                <input type="number" name="money" id="money" />
+              </div>
+            </div>
+            <button type="submit" class="add-activity-form-submit">Thêm</button>
+          </form>
+        </div>
+      </div>
+      <div class="wrap-table">
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th colspan="5">Thống kê các khoản phí</th>
+            </tr>
+            <tr>
+              <th>Tên khoản thu</th>
+              <th>Tổng tiền</th>
+              <th>Tổng số hộ đã đóng</th>
+              <th>Bắt buộc</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if(allFees) { allFees.forEach( fee => { %>
+            <tr>
+              <td><%= fee.feeName %></td>
+              <td><%= fee.sumMoney %></td>
+              <td><%= fee.sumFamily %></td>
+              <% if(fee.require) { %>
+              <td>Bắt buộc</td>
+              <% } else { %>
+              <td></td>
+              <% } %>
+            </tr>
+            <% }) } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

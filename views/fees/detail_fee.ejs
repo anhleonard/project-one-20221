@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/thongke.css">
+    <link rel="stylesheet" href="/css/fee_thongke.css">
+    <title>Thống kê các khoản đã đóng</title>
+</head>
+<body>
+    <div class="wrap-fees">
+        <div class="fee-title">THỐNG KÊ CÁC CHI PHÍ ĐÃ ĐÓNG</div>
+        <div class="fee-title">MÃ HỘ: <%= id_family %> </div>
+        <div class="wrap-fee-content">
+            <div>
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Các khoản phí bắt buộc đã đóng</th>
+                        </tr>
+                        <tr>
+                            <th>Tên khoản thu</th>
+                            <th>Số tiền đã đóng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if(require_fees) {
+                            require_fees.forEach( fee => {
+                                %>
+                                    <tr>
+                                        <td><%= fee.feeName %></td>
+                                        <td><%= fee.tongTien %></td>
+                                    </tr>
+                                <%
+                            })
+                        } %> 
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Các khoản phí không bắt buộc đã đóng</th>
+                        </tr>
+                        <tr>
+                            <th>Tên khoản thu</th>
+                            <th>Số tiền đã đóng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if(other_fees) {
+                            other_fees.forEach( fee => {
+                                %>
+                                    <tr>
+                                        <td><%= fee.feeName %></td>
+                                        <td><%= fee.total_money %></td>
+                                    </tr>
+                                <%
+                            })
+                        } %> 
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

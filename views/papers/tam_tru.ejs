@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Giấy tạm trú</title>
+    <link rel="stylesheet" href="/css/tam_tru.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="/js/tam_tru.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <ul id="nav">
+        <li><a href="/">Trang Chủ</a></li>
+        <li><a href="/nhankhau">Nhân Khẩu</a></li>
+        <li><a href="/familyList">Hộ khẩu</a></li>
+        <li>
+          <a href="/papers/giay_tam_tru" class="active">Khai Báo</a>
+          <ul class="subnav">
+            <li><a href="/papers/giay_tam_tru">Tạm Trú</a></li>
+            <li><a href="/papers/giay_tam_vang">Tạm Vắng</a></li>
+          </ul>
+        </li>
+        <li><a href="/fees">Khoản Phí</a></li>
+        <li>
+          <a href="/thongke">Thống Kê</a>
+          <ul class="subnav">
+            <li><a href="/thongke">Giới tính</a></li>
+            <li><a href="/thongke/ages">Độ tuổi</a></li>
+            <li><a href="/thongke/foreigners">Tạm trú/ Tạm vắng</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap-form-tam-tru">
+      <div>
+        <div class="title">PHIẾU KHAI BÁO TẠM TRÚ</div>
+        <div>
+          <form
+            action="/papers/histories/tam_tru"
+            class="card-form"
+            method="post">
+            <div class="input">
+              <label for="ma_ho_khau" class="input-label"
+                >Chuyển đến mã hộ</label
+              >
+              <div class="wrap-input-field">
+                <input
+                  type="number"
+                  name="ma_ho_khau"
+                  id="ma_ho_khau"
+                  class="input-field"
+                  onblur="checkFamily(this)"
+                  onkeyup="valueIsEmpty(this)"
+                  required />
+                <p></p>
+              </div>
+            </div>
+            <div class="input">
+              <label for="ma_nhan_khau" class="input-label">Mã nhân khẩu</label>
+              <div class="wrap-input-field">
+                <input
+                  type="number"
+                  name="ma_nhan_khau"
+                  id="ma_nhan_khau"
+                  class="input-field"
+                  onblur="checkUser(this)"
+                  onkeyup="valueIsEmpty(this)"
+                  placeholder="100000 - 999999"
+                  required />
+                <p></p>
+              </div>
+            </div>
+            <div class="input">
+              <label for="fullName" class="input-label">Họ và tên</label>
+              <div class="wrap-input-field">
+                <input
+                  type="text"
+                  name="fullName"
+                  id="fullName"
+                  class="input-field"
+                  required />
+                <p></p>
+              </div>
+            </div>
+            <div class="wrap-input-date-gentle">
+              <label for="birthDay" class="input-label"
+                >Ngày, tháng, năm sinh</label
+              >
+              <div class="input-date-gentle">
+                <input
+                  class="input-field"
+                  type="date"
+                  name="birthDay"
+                  id="birthDay"
+                  required />
+                <div class="input-gentle">
+                  <label for="gentle" class="input-label">Giới tính</label>
+                  <select name="gentle" id="gentle">
+                    <option value="Nam">Nam</option>
+                    <option value="Nữ">Nữ</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="input">
+              <label for="cmndNumber" class="input-label">Số CMND/CCCD</label>
+              <div class="wrap-input-field">
+                <input
+                  class="input-field"
+                  type="text"
+                  name="cmndNumber"
+                  id="cmndNumber"
+                  onblur="checkValidCMND(this)"
+                  onkeyup="valueIsEmpty(this)"
+                  required />
+                <p></p>
+              </div>
+            </div>
+            <div class="input">
+              <label for="curAddress" class="input-label">Nơi thường trú</label>
+              <div class="wrap-input-field">
+                <input
+                  class="input-field"
+                  type="text"
+                  name="curAddress"
+                  id="curAddress"
+                  required />
+                <p></p>
+              </div>
+            </div>
+            <div class="input">
+              <label for="tempoAddress" class="input-label">Nơi tạm trú</label>
+              <div class="wrap-input-field">
+                <input
+                  class="input-field"
+                  type="text"
+                  name="tempoAddress"
+                  id="tempoAddress"
+                  required />
+                <p></p>
+              </div>
+            </div>
+            <div class="wrap-date">
+              <label for="fromDate" class="input-label">Tạm trú từ ngày</label>
+              <div class="input-date">
+                <input
+                  class="input-field"
+                  type="date"
+                  name="fromDate"
+                  id="fromDate"
+                  style="height: 35px"
+                  required
+                  onblur="checkValidDate(this)" />
+                <div class="input-todate">
+                  <label for="toDate" class="input-label">đến ngày</label>
+                  <div class="wrap-input-todate">
+                    <input
+                      class="input-field"
+                      type="date"
+                      name="toDate"
+                      id="toDate"
+                      required
+                      onblur="checkValidDate(this)" />
+                    <p>Hạn tạm trú: 30 ngày -> 2 năm</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="input">
+              <label for="reason" class="input-label">Lý do tạm trú</label>
+              <div class="wrap-input-field">
+                <input
+                  class="input-field"
+                  type="text"
+                  name="reason"
+                  id="reason" />
+                <p></p>
+              </div>
+            </div>
+            <div class="action">
+              <button class="action-button" id="submit-btn" type="submit">
+                Cấp giấy
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
